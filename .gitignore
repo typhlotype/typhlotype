@@ -1,0 +1,5 @@
+/target/
+/src/js/*
+/env/
+/.vscode/
+__pycache__

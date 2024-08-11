@@ -1,0 +1,107 @@
+*, ::after, ::before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	word-wrap: break-word;
+}
+
+:root {
+	font-size: 32px;
+	font-family: sans-serif;
+	color: var(--color-fg);
+	color-scheme: light;
+
+	--color-fg: #000;
+	--color-bg: #fff;
+	--color-highlight: #ff4400;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--color-fg: #fff;
+		--color-bg: #000;
+		--color-highlight: #ffbb00;
+		color-scheme: dark;
+	}
+}
+
+body {
+	margin: 0;
+	background: var(--color-bg);
+}
+
+#wrapper {
+	max-width: 30rem;
+	margin: 0 auto;
+	padding: 1rem;
+}
+
+nav > ul, .horizButtons {
+	list-style: none;
+	padding: 0;
+	margin: 0.25rem -0.25rem;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+nav > ul button, nav > ul a, .horizButtons button {
+	margin: 0.25rem;
+}
+
+button, input, nav > ul a, select {
+	font: inherit;
+	border-radius: 0.25rem;
+	padding: 0.15rem 0.4rem;
+	border: solid var(--color-fg) 0.1rem;
+}
+
+input {
+	background: var(--color-bg);
+}
+
+input[type="checkbox"] {
+	height: 0.75em;
+	width: 0.75em;
+}
+
+h1, h2, h3 {
+	border-radius: 0.25rem;
+}
+
+select {
+	background: var(--color-bg);
+}
+
+button, nav > ul a {
+	background: var(--color-fg);
+	color: var(--color-bg);
+	text-decoration: none;
+	display: inline-block;
+}
+
+:focus:not(.inputLabelPair *), .inputLabelPair:focus-within {
+	outline: solid 0.25rem var(--color-highlight);
+	outline-offset: 0.1rem;
+}
+
+.inputLabelPair {
+	border-radius: 0.25rem;
+}
+
+fieldset {
+	margin: 1rem 0;
+	padding: 0.5rem 1rem;
+}
+
+fieldset > label, fieldset > select, fieldset > button, fieldset > div {
+	display: block;
+	margin: 0.5rem 0;
+}
+
+legend {
+	margin-bottom: -0.5rem;
+}
+
+legend > * {
+	margin: 0;
+}

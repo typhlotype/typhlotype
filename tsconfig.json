@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"lib": ["es2017", "dom"],
+		"module": "es6",
+		"rootDir": "src/ts/",
+		"strict": true,
+		"outDir": "src/js/",
+		"sourceMap": true,
+	},
+	"include": [
+		"src/ts/**/*"
+    ],
+}

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="HandheldFriendly" content="true">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="referrer" content="origin">
+		<title i18n="application.title">Typing practice prototype</title>
+		<link rel="stylesheet" href="main.css">
+		<script src="js/main.js" type="module"></script>
+	</head>
+	<body>
+		<div id="wrapper">
+			<header>
+				<h1 i18n="application.title">Typing practice</h1>
+				<nav>
+					<ul>
+						<li><button id="beginBtn" accesskey="1" i18n="application.begin">Begin</button></li>
+						<!-- <li><button id="introductionBtn" accesskey="2" i18n="application.introduction">Introduction</button></li> -->
+						<li><button id="settingsBtn" accesskey="3" i18n="application.openSettings">Settings</button></li>
+						<li><a href="https://lauritzt.dk/en/contact/" accesskey="4" i18n="application.giveFeedback">Give feedback</a></li>
+					</ul>
+				</nav>
+			</header>
+
+			<div id="livePromptAssertive" aria-live="assertive"></div>
+			<div id="livePromptPolite" aria-live="polite"></div>
+
+			<section id="practice" hidden>
+				<input id="wordInput" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" list="_autocompleteOff" spellcheck="false" aria-label="" i18n="[aria-roledescription]=practice.inputField">
+			</section>
+
+			<section id="settings" hidden>
+				<h2 tabindex="-1" i18n="settings.heading">Settings</h2>
+				<fieldset>
+					<legend><h3 i18n="settings.language.heading">Language settings</h3></legend>
+
+					<div>
+						<label for="interfaceLanguage" i18n="settings.language.heading">Interface language</label>
+						<select id="interfaceLanguage">
+							<option value="en-us">English (United States)</option>
+							<option value="en-gb">English (United Kingdom)</option>
+							<option value="da-dk">Danish (Denmark)</option>
+						</select>
+					</div>
+
+					<button>Apply language settings</button>
+				</fieldset>
+
+				<fieldset>
+					<legend><h3>Input settings</h3></legend>
+
+					<div>
+						<label for="keyboardLayoutRegion">Keyboard layout language</label>
+						<select id="keyboardLayoutRegion">
+							<option value="en-us">English (United States)</option>
+							<option value="en-gb">English (United Kingdom)</option>
+							<option value="da-dk">Danish (Denmark)</option>
+						</select>
+					</div>
+
+					<div>
+						<label for="keyboardLayout">Keyboard layout variant</label>
+						<select id="keyboardLayout">
+							<option value="qwerty">QWERTY</option>
+							<option value="colemak">Colemak</option>
+						</select>
+					</div>
+
+					<div>
+						<label for="angleMod">Bottom row left finger shift angle</label>
+						<select id="angleMod">
+							<option value="traditional">Right (traditional)</option>
+							<option value="ergonomic">Left (ergonomic)</option>
+						</select>
+					</div>
+
+					<button>Apply input settings</button>
+				</fieldset>
+
+				<fieldset>
+					<legend><h3 id="keyPrompt">Prompt message contents</h3></legend>
+
+					<div class="inputLabelPair">
+						<input type="checkbox" id="keyPrompt-actionDescription" name="keyPrompt-actionDescription" aria-describedby="keyPrompt">
+						<label for="keyPrompt-actionDescription">Action description (e.g. press)</label>
+					</div>
+
+					<div class="inputLabelPair">
+						<input type="checkbox" id="keyPrompt-letter" name="keyPrompt-letter" aria-describedby="keyPrompt">
+						<label for="keyPrompt-letter">Letter</label>
+					</div>
+
+					<div class="inputLabelPair">
+						<input type="checkbox" id="keyPrompt-phoneticSpellingAlphabet" name="keyPrompt-phoneticSpellingAlphabet" aria-describedby="keyPrompt">
+						<label for="keyPrompt-phoneticSpellingAlphabet">Letter in the phonetic spelling alphabet</label>
+					</div>
+
+					<div class="inputLabelPair">
+						<input type="checkbox" id="keyPrompt-fingerLocation" name="keyPrompt-fingerLocation"  aria-describedby="keyPrompt">
+						<label for="keyPrompt-fingerLocation">Location assistance (which finger to press)</label>
+					</div>
+
+					<button>Apply key prompt settings</button>
+				</fieldset>
+
+				<fieldset>
+					<legend><h3>Prompt speech methods</h3></legend>
+
+					<div class="inputLabelPair">
+						<input type="checkbox" id="promptSpeech-live" name="promptSpeech-live">
+						<label for="promptSpeech-live">Live (recommended for screen readers)</label>
+					</div>
+
+					<div class="inputLabelPair">
+						<input type="checkbox" id="promptSpeech-label" name="promptSpeech-label">
+						<label for="promptSpeech-label">Label on input field</label>
+					</div>
+
+					<div class="inputLabelPair">
+						<input type="checkbox" id="promptSpeech-speech" name="promptSpeech-speech">
+						<label for="promptSpeech-speech">Independent speech synthesis</label>
+					</div>
+
+					<button>Apply prompt reading aloud settings</button>
+				</fieldset>
+			</section>
+		</div>
+	</body>
+</html>
