@@ -6,9 +6,22 @@ export function setMap(newMap: any) {
 	map = newMap;
 }
 
-export function i18n(key: string): string {
-	console.warn("Unknown i18n key: ", key);
-	return key;
+export function i18n(keyPath: string): string {
+	let res: any = map;
+	for (const key of keyPath.split(".")) {
+		res = res[key];
+
+		if (res === undefined) {
+			break;
+		}
+	}
+
+	if (typeof res === "string") {
+		return res;
+	} else {
+		console.warn("Unknown i18n key: ", keyPath);
+		return "(" + keyPath + ")";
+	}
 }
 
 export function charMap(key: string): string {

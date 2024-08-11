@@ -1,8 +1,9 @@
-import { KeyboardLayout } from "./model";
+import { i18n } from "./i18nMap.js";
+import { KeyboardLayout } from "./model.js";
 
 export class StandardKeyboardLayout implements KeyboardLayout {
 	layout: [string, string, string];
-	fingers = ["pinky", "ring finger", "middle finger", "index finger"];
+	fingers = ["pinky", "ringFinger", "middleFinger", "indexFinger"];
 	heights = ["above", null, "below"];
 	leftHome = 3;
 	rightHome = 6;
@@ -40,29 +41,30 @@ export class StandardKeyboardLayout implements KeyboardLayout {
 			extendedFinger = true;
 		}
 
-		let locationHint = columnSide + " " + this.fingers[columnFinger];
+		let locationHint = i18n("prompt.keyboard." + columnSide) + i18n(" ") + i18n("prompt.keyboard." + this.fingers[columnFinger]);
 
-		if (this.heights[loc.row]) {
-			locationHint += ", " + this.heights[loc.row];
+		const rowHeight = this.heights[loc.row];
+		if (rowHeight) {
+			locationHint += "," + i18n(" ") + i18n("prompt.keyboard." + rowHeight);
 
 			if (extendedFinger) {
-				locationHint += " and ";
+				locationHint += i18n(" ") + i18n("prompt.keyboard.and") + i18n(" ");
 			}
 		}
 
 		if (extendedFinger) {
 			switch (columnSide) {
 				case "left":
-					locationHint += " to the right";
+					locationHint += i18n(" ") + i18n("prompt.keyboard.toTheRight");
 					break;
 				case "right":
-					locationHint += " to the left";
+					locationHint += i18n(" ") + i18n("prompt.keyboard.toTheLeft");
 					break;
 			}
 		}
 
 		if (!extendedFinger && !this.heights[loc.row]) {
-			locationHint += ", home key";
+			locationHint += "," + i18n(" ") + i18n("prompt.keyboard.homeRow");
 		}
 
 		return locationHint;

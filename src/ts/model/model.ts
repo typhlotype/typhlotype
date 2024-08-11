@@ -1,4 +1,4 @@
-import { charMap, phoneticSpellingAlphabet } from "./i18nMap.js";
+import { charMap, i18n, phoneticSpellingAlphabet } from "./i18nMap.js";
 import { StandardKeyboardLayout } from "./keyboardLayout.js";
 import { AssertivePromptEvent } from "../events/textPrompt/assertivePromptEvent.js";
 import { StateChangeEvent } from "../events/StateChangeEvent.js";
@@ -51,7 +51,7 @@ export class Model {
 			promptText += prefix + ". ";
 		} else if (this.position == 0) {
 			if (settings.keyPrompt.actionDescription) {
-				promptText += "type ";
+				promptText += i18n("prompt.type") + i18n(" ");
 			}
 			promptText += this.word + ". ";
 		}
@@ -59,7 +59,7 @@ export class Model {
 		const letter = this.requestedLetter();
 
 		if (settings.keyPrompt.actionDescription) {
-			promptText += "press "
+			promptText += i18n("prompt.press") + i18n(" ");
 		};
 
 		if (settings.keyPrompt.letter) {
@@ -93,7 +93,7 @@ export class Model {
 			this.increment();
 			this.prompt();
 		} else {
-			this.prompt("incorrect");
+			this.prompt(i18n("prompt.incorrect") + i18n(" "));
 		}
 	}
 

@@ -1,4 +1,25 @@
 {
+	"_inherit": null,
+	"prompt": {
+		"press": "press",
+		"type": "type",
+		"incorrect": "incorrect",
+		"keyboard": {
+			"left": "left",
+			"right": "right",
+			"pinky": "pinky",
+			"ringFinger": "ring finger",
+			"middleFinger": "middle finger",
+			"indexFinger": "index finger",
+			"thumb": "thumb",
+			"above": "above",
+			"below": "below",
+			"homeRow": "home row",
+			"toTheLeft": "to the left",
+			"toTheRight": "to the right",
+			"and": "and"
+		}
+	},
 	"charMap": {
 		" ": "space"
 	},
@@ -29,5 +50,6 @@
 		"x": "x-ray",
 		"y": "yankee",
 		"z": "zulu"
-	}
+	},
+	" ": " "
 }
