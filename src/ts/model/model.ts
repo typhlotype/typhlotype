@@ -93,7 +93,7 @@ export class Model {
 			this.increment();
 			this.prompt();
 		} else {
-			this.prompt(i18n("prompt.incorrect") + i18n(" "));
+			this.prompt(i18n("prompt.incorrect"));
 		}
 	}
 
