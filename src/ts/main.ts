@@ -8,13 +8,16 @@ import { RandomWordGenerator } from "./model/randomWordGenerator.js";
 
 export let model: Model;
 
-document.addEventListener("DOMContentLoaded", async function() {
+async function preDomInit() {
 	const wordGen = new RandomWordGenerator(await dataFetch.get("words/en/200.json"));
 	model = new Model(wordGen);
 	i18nMap.setMap(await dataFetch.get("translations/en.json"));
-
-	controller.init();
 	livePrompt.init();
+}
+
+document.addEventListener("DOMContentLoaded", async function() {
+	preDomInit();
+	controller.init();
 
 	console.log("Running with settings:", settings);
 });
