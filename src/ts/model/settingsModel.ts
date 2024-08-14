@@ -1,6 +1,6 @@
 export class Settings {
 	language = {
-		interfaceLanguage: "en",
+		interfaceLanguage: "en" as string | undefined,
 	};
 	input = {
 		layoutRegion: "universal",

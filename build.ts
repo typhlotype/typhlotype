@@ -28,6 +28,9 @@ async function handleFiles() {
 	await fs.copy("src/index.html", "target/index.html");
 	await fs.copy("src/main.css", "target/main.css");
 
+	await Deno.mkdir("target/src");
+	await fs.copy("src/ts", "target/src/ts");
+
 	spinner.stop();
 	console.log("Built successfully");
 	buildLock = false;
@@ -37,7 +40,7 @@ async function handleFiles() {
 
 async function watch() {
 	const watcher = Deno.watchFs(["src", "data"]);
-	
+
 
 	for await (const event of watcher) {
 		if (event.kind === "access") {
