@@ -30,7 +30,7 @@
 	"charMap": {
 		" ": "space"
 	},
-	"phoneticMap": {
+	"phoneticSpellingAlphabet": {
 		"a": "alfa",
 		"b": "bravo",
 		"c": "charlie",
