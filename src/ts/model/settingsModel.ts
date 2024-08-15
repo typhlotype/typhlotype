@@ -1,3 +1,5 @@
+import { SettingsChangeEvent } from "../events/SettingsChangeEvent.js";
+
 export class Settings {
 	language = {
 		interfaceLanguage: "en" as string | undefined,
@@ -13,7 +15,7 @@ export class Settings {
 		phoneticSpellingAlphabet: false,
 		locationAssistance: false,
 	};
-	promptSpeech = {
+	promptSpeechMethods = {
 		live: true,
 		label: false,
 		speech: false,
@@ -22,8 +24,14 @@ export class Settings {
 	constructor() {}
 }
 
-export const settings = new Settings();
+export let settings = new Settings();
 
+export function applySettings(newSettings: Partial<Settings>, event=true) {
+	settings = {...settings, ...newSettings};
 
+	if (event) {
+		new SettingsChangeEvent().send();
+	}
+}
 
 type promptPart = "actionDescription" | "letter" | "phoneticSpellingAlphabet" | "word" | "wordSpelled" | "absoluteKeyPosition" | "relativeKeyPosition";

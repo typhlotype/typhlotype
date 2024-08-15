@@ -1,6 +1,7 @@
 import { Model } from "../model/model.js";
 import * as i18nMap from "../model/i18nMap.js";
 import * as dataFetch from "../controller/dataFetch.js";
+import * as settingsController from "../controller/settingsController.js";
 import * as livePrompt from "../ui/livePrompt.js";
 import { RawLetterInputEvent } from "../events/input/rawLetterInputEvent.js";
 import { cancelDelayedPrompt } from "../model/delayedPrompt.js";
@@ -14,14 +15,16 @@ export class Controller {
 	}
 
 	static async new(): Promise<Controller> {
-		// Fetch resources
+		// Fetch resources and load settings
 		const [words, translation] = await Promise.all([
 			dataFetch.get("words/en/200.json"),
 			dataFetch.get("translations/en.json"),
+			settingsController.init()
 		]);
 		const wordGen = new RandomWordGenerator(words);
 		const model = new Model(wordGen);
 		i18nMap.setMap(translation);
+		settingsController.updatePageFromSettings();
 
 		livePrompt.init();
 

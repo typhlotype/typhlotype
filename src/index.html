@@ -5,7 +5,7 @@
 		<meta name="HandheldFriendly" content="true">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="referrer" content="origin">
-		<title i18n="application.title">Typing practice prototype</title>
+		<title i18n="application.title">Typing practice</title>
 		<link rel="stylesheet" href="main.css">
 		<script src="js/main.js" type="module"></script>
 	</head>
@@ -37,14 +37,14 @@
 
 					<div>
 						<label for="interfaceLanguage" i18n="settings.language.heading">Interface language</label>
-						<select id="interfaceLanguage">
+						<select id="interfaceLanguage" data-settings-key="language.interfaceLanguage">
+							<option value="en">English</option>
 							<option value="en-us">English (United States)</option>
-							<option value="en-gb">English (United Kingdom)</option>
-							<option value="da-dk">Danish (Denmark)</option>
+							<option value="da">Danish</option>
 						</select>
 					</div>
 
-					<button>Apply language settings</button>
+					<button data-action-fieldset="apply">Apply language settings</button>
 				</fieldset>
 
 				<fieldset>
@@ -52,16 +52,16 @@
 
 					<div>
 						<label for="keyboardLayoutRegion">Keyboard layout language</label>
-						<select id="keyboardLayoutRegion">
+						<select id="keyboardLayoutRegion" data-settings-key="input.layoutRegion">
+							<option value="en">English (United Kingdom)</option>
 							<option value="en-us">English (United States)</option>
-							<option value="en-gb">English (United Kingdom)</option>
-							<option value="da-dk">Danish (Denmark)</option>
+							<option value="da">Danish</option>
 						</select>
 					</div>
 
 					<div>
 						<label for="keyboardLayout">Keyboard layout variant</label>
-						<select id="keyboardLayout">
+						<select id="keyboardLayout" data-settings-key="input.layoutVariant">
 							<option value="qwerty">QWERTY</option>
 							<option value="colemak">Colemak</option>
 						</select>
@@ -69,60 +69,60 @@
 
 					<div>
 						<label for="angleMod">Bottom row left finger shift angle</label>
-						<select id="angleMod">
+						<select id="angleMod" data-settings-key="input.angleMod">
 							<option value="traditional">Right (traditional)</option>
 							<option value="ergonomic">Left (ergonomic)</option>
 						</select>
 					</div>
 
-					<button>Apply input settings</button>
+					<button data-action-fieldset="apply">Apply input settings</button>
 				</fieldset>
 
 				<fieldset>
 					<legend><h3 id="keyPrompt">Prompt message contents</h3></legend>
 
 					<div class="inputLabelPair">
-						<input type="checkbox" id="keyPrompt-actionDescription" name="keyPrompt-actionDescription" aria-describedby="keyPrompt">
+						<input type="checkbox" id="keyPrompt-actionDescription" name="keyPrompt-actionDescription" aria-describedby="keyPrompt" data-settings-key="keyPrompt.actionDescription">
 						<label for="keyPrompt-actionDescription">Action description (e.g. press)</label>
 					</div>
 
 					<div class="inputLabelPair">
-						<input type="checkbox" id="keyPrompt-letter" name="keyPrompt-letter" aria-describedby="keyPrompt">
+						<input type="checkbox" id="keyPrompt-letter" name="keyPrompt-letter" aria-describedby="keyPrompt" data-settings-key="keyPrompt.letter">
 						<label for="keyPrompt-letter">Letter</label>
 					</div>
 
 					<div class="inputLabelPair">
-						<input type="checkbox" id="keyPrompt-phoneticSpellingAlphabet" name="keyPrompt-phoneticSpellingAlphabet" aria-describedby="keyPrompt">
+						<input type="checkbox" id="keyPrompt-phoneticSpellingAlphabet" name="keyPrompt-phoneticSpellingAlphabet" aria-describedby="keyPrompt" data-settings-key="keyPrompt.phoneticSpellingAlphabet">
 						<label for="keyPrompt-phoneticSpellingAlphabet">Letter in the phonetic spelling alphabet</label>
 					</div>
 
 					<div class="inputLabelPair">
-						<input type="checkbox" id="keyPrompt-fingerLocation" name="keyPrompt-fingerLocation"  aria-describedby="keyPrompt">
+						<input type="checkbox" id="keyPrompt-fingerLocation" name="keyPrompt-fingerLocation"  aria-describedby="keyPrompt" data-settings-key="keyPrompt.locationAssistance">
 						<label for="keyPrompt-fingerLocation">Location assistance (which finger to press)</label>
 					</div>
 
-					<button>Apply key prompt settings</button>
+					<button data-action-fieldset="apply">Apply key prompt settings</button>
 				</fieldset>
 
 				<fieldset>
 					<legend><h3>Prompt speech methods</h3></legend>
 
 					<div class="inputLabelPair">
-						<input type="checkbox" id="promptSpeech-live" name="promptSpeech-live">
-						<label for="promptSpeech-live">Live (recommended for screen readers)</label>
+						<input type="checkbox" id="promptSpeechMethods-live" name="promptSpeechMethods-live" data-settings-key="promptSpeechMethods.live">
+						<label for="promptSpeechMethods-live">Live (recommended for screen readers)</label>
 					</div>
 
 					<div class="inputLabelPair">
-						<input type="checkbox" id="promptSpeech-label" name="promptSpeech-label">
-						<label for="promptSpeech-label">Label on input field</label>
+						<input type="checkbox" id="promptSpeechMethods-label" name="promptSpeechMethods-label" data-settings-key="promptSpeechMethods.label">
+						<label for="promptSpeechMethods-label">Label on input field</label>
 					</div>
 
 					<div class="inputLabelPair">
-						<input type="checkbox" id="promptSpeech-speech" name="promptSpeech-speech">
-						<label for="promptSpeech-speech">Independent speech synthesis</label>
+						<input type="checkbox" id="promptSpeechMethods-speech" name="promptSpeechMethods-speech" data-settings-key="promptSpeechMethods.speech">
+						<label for="promptSpeechMethods-speech">Independent speech synthesis</label>
 					</div>
 
-					<button>Apply prompt reading aloud settings</button>
+					<button data-action-fieldset="apply">Apply prompt reading aloud settings</button>
 				</fieldset>
 			</section>
 		</div>

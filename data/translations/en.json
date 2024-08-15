@@ -20,6 +20,13 @@
 			"and": "and"
 		}
 	},
+	"application": {
+		"title": "Typing practice",
+		"begin": "Begin",
+		"introduction": "Introduction",
+		"openSettings": "Settings",
+		"giveFeedback": "Give feedback"
+	},
 	"charMap": {
 		" ": "space"
 	},
