@@ -27,6 +27,7 @@ async function handleFiles() {
 	await fs.copy("data", "target/data");
 	await fs.copy("src/index.html", "target/index.html");
 	await fs.copy("src/main.css", "target/main.css");
+	await fs.copy("static", "target/static");
 
 	await Deno.mkdir("target/src");
 	await fs.copy("src/ts", "target/src/ts");
@@ -39,7 +40,7 @@ async function handleFiles() {
 }
 
 async function watch() {
-	const watcher = Deno.watchFs(["src", "data"]);
+	const watcher = Deno.watchFs(["src", "data", "static"]);
 
 
 	for await (const event of watcher) {
