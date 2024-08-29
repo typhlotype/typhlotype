@@ -41,7 +41,7 @@ export class Model {
 	}
 
 	prompt(prefix?: string) {
-		new LetterPromptEvent(this.requestedLetter()).send();
+		new LetterPromptEvent(this.word, this.position).send();
 		new StateChangeEvent().send();
 
 		cancelDelayedPrompt("wordPromptHint");

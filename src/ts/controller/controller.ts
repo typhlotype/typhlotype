@@ -3,6 +3,7 @@ import * as i18nMap from "../model/i18nMap.js";
 import * as dataFetch from "../controller/dataFetch.js";
 import * as settingsController from "../controller/settingsController.js";
 import * as livePrompt from "../ui/livePrompt.js";
+import * as wordDisplay from "../ui/wordDisplay.js";
 import { RawLetterInputEvent } from "../events/input/rawLetterInputEvent.js";
 import { cancelDelayedPrompt } from "../model/delayedPrompt.js";
 import { RandomWordGenerator } from "../model/randomWordGenerator.js";
@@ -33,6 +34,7 @@ export class Controller {
 		settingsController.updatePageFromSettings();
 
 		livePrompt.init();
+		wordDisplay.init();
 
 		let controller = new Controller(model);
 
@@ -59,6 +61,10 @@ export class Controller {
 		document.querySelector("#settingsBtn")?.addEventListener("click", function() {
 			document.querySelector("#settings")?.removeAttribute("hidden");
 			(document.querySelector("#settings > h2") as HTMLElement)?.focus();
+		});
+
+		document.querySelector("#wordDisplay")?.addEventListener("click", () => {
+			(document.querySelector("#wordInput") as HTMLElement)?.focus();
 		});
 
 		document.querySelector("#wordInput")?.addEventListener("input", function(_e) {

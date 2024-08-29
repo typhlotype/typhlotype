@@ -2,11 +2,15 @@ import {Inner} from "../inner.js";
 
 export class LetterPromptEvent {
 	letter: string;
+	word: string;
+	wordPosition: number;
 
 	static inner = new Inner<LetterPromptEvent>();
 
-	constructor(letter: string) {
-		this.letter = letter;
+	constructor(word: string, wordPosition: number) {
+		this.word = word;
+		this.wordPosition = wordPosition;
+		this.letter = word[wordPosition];
 	}
 
 	send() {
@@ -17,5 +21,3 @@ export class LetterPromptEvent {
 		LetterPromptEvent.inner.subscribe(subscriber);
 	}
 }
-
-
