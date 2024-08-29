@@ -1,16 +1,16 @@
 import {Inner} from "../inner.js";
 
 export class LetterInputEvent {
-	letter: string;
+	letters: string;
 	/** Whether the letter is correct. `null` if it was not checked for
 		correctness (e.g. free-typing mode). */
-	correct: boolean | null;
+	correctUntil: number | null;
 
 	static inner = new Inner<LetterInputEvent>();
 
-	constructor(letters: string, correct: boolean | null) {
-		this.letter = letters;
-		this.correct = correct;
+	constructor(letters: string, correctUntil: number | null) {
+		this.letters = letters;
+		this.correctUntil = correctUntil;
 	}
 
 	send() {

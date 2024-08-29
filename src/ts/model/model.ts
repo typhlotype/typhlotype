@@ -6,6 +6,7 @@ import { LetterPromptEvent } from "../events/activityPrompt/letterPromptEvent.js
 import { RawLetterInputEvent } from "../events/input/rawLetterInputEvent.js";
 import { cancelDelayedPrompt, delayedPrompt } from "./delayedPrompt.js";
 import { settings } from "./settingsModel.js";
+import { LetterInputEvent } from "../events/input/letterInputEvent.js";
 
 export class Model {
 	word: string;
@@ -92,8 +93,10 @@ export class Model {
 		if (event.letter == this.requestedLetter()) {
 			this.increment();
 			this.prompt();
+			new LetterInputEvent(event.letter, 1).send();
 		} else {
 			this.prompt(i18n("prompt.incorrect"));
+			new LetterInputEvent(event.letter, 0).send();
 		}
 	}
 
