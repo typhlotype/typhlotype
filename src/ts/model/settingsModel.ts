@@ -7,7 +7,7 @@ export class Settings {
 	input = {
 		layoutRegion: "universal",
 		layoutVariant: "qwerty",
-		angleMod: "traditional" as "traditional" | "ergonomic",
+		angleMod: "right" as "left" | "right" | "straight",
 	};
 	keyPrompt = {
 		actionDescription: true,
