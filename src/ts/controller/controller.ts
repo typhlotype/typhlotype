@@ -81,6 +81,8 @@ export class Controller {
 		document.querySelector("#wordInput")?.addEventListener("blur", function() {
 			cancelDelayedPrompt("wordPromptHint");
 		});
+
+		document.querySelector("#wrapper")?.removeAttribute("hidden");
 	}
 
 }
