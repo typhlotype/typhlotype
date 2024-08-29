@@ -1,0 +1,64 @@
+{
+	"prompt": {
+		"press": "tryk",
+		"type": "skriv",
+		"incorrect": "forkert",
+		"keyboard": {
+			"left": "venstre",
+			"right": "højre",
+			"pinky": "lillefinger",
+			"ringFinger": "ringfinger",
+			"middleFinger": "langefinger",
+			"indexFinger": "pegefinger",
+			"thumb": "tommelfinger",
+			"above": "ovenover",
+			"below": "nedenunder",
+			"homeRow": "grundrækken",
+			"toTheLeft": "til venstre",
+			"toTheRight": "til højre",
+			"and": "og"
+		}
+	},
+	"application": {
+		"title": "Tasteøvelser",
+		"begin": "Begynd",
+		"introduction": "Vejledning",
+		"openSettings": "Indstillinger",
+		"giveFeedback": "Giv feedback"
+	},
+	"charMap": {
+		" ": "mellemrum"
+	},
+	"phoneticSpellingAlphabet": {
+		"a": "alfa",
+		"b": "bravo",
+		"c": "charlie",
+		"d": "delta",
+		"e": "echo",
+		"f": "foxtrot",
+		"g": "golf",
+		"h": "hotel",
+		"i": "india",
+		"j": "juliett",
+		"k": "kilo",
+		"l": "lima",
+		"m": "mike",
+		"n": "november",
+		"o": "oscar",
+		"p": "papa",
+		"q": "quebec",
+		"r": "romeo",
+		"s": "sierra",
+		"t": "tango",
+		"u": "uniform",
+		"v": "victor",
+		"w": "whiskey",
+		"x": "x-ray",
+		"y": "yankee",
+		"z": "zulu",
+		"æ": "ægir",
+		"ø": "odis",
+		"å": "åse"
+	},
+	" ": " "
+}

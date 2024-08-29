@@ -6,6 +6,8 @@ import * as livePrompt from "../ui/livePrompt.js";
 import { RawLetterInputEvent } from "../events/input/rawLetterInputEvent.js";
 import { cancelDelayedPrompt } from "../model/delayedPrompt.js";
 import { RandomWordGenerator } from "../model/randomWordGenerator.js";
+import { settings } from "../model/settingsModel.js";
+import { applyI18nLabels } from "../ui/applyI18nLabels.js";
 
 export class Controller {
 	model: Model;
@@ -15,15 +17,19 @@ export class Controller {
 	}
 
 	static async new(): Promise<Controller> {
-		// Fetch resources and load settings
+		// Load settings
+		settingsController.init();
+
+		// Load words and i18n data
 		const [words, translation] = await Promise.all([
-			dataFetch.get("words/en/200.json"),
-			dataFetch.get("translations/en.json"),
-			settingsController.init()
+			dataFetch.get(`words/${settings.language.wordSetLanguage}/${settings.language.wordSet}.json`),
+			dataFetch.get(`translations/${settings.language.interfaceLanguage}.json`),
 		]);
-		const wordGen = new RandomWordGenerator(words);
-		const model = new Model(wordGen);
 		i18nMap.setMap(translation);
+
+		const wordGenerator = new RandomWordGenerator(words);
+		const model = new Model(wordGenerator);
+
 		settingsController.updatePageFromSettings();
 
 		livePrompt.init();
@@ -42,6 +48,8 @@ export class Controller {
 	}
 
 	initDom() {
+		applyI18nLabels();
+
 		document.querySelector("#beginBtn")?.addEventListener("click", () => {
 			this.model.restart();
 			document.querySelector("#practice")?.removeAttribute("hidden");

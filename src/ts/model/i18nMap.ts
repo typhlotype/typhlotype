@@ -19,7 +19,7 @@ export function i18n(keyPath: string): string {
 	if (typeof res === "string") {
 		return res;
 	} else {
-		console.warn("Unknown i18n key: ", keyPath);
+		console.warn("Unknown i18n key:", keyPath);
 		return "(" + keyPath + ")";
 	}
 }

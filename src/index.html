@@ -5,38 +5,38 @@
 		<meta name="HandheldFriendly" content="true">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="referrer" content="origin">
-		<title i18n="application.title">Typing practice</title>
+		<title data-i18n="application.title">Typing practice</title>
 		<link rel="stylesheet" href="main.css">
 		<script src="js/main.js" type="module"></script>
 	</head>
 	<body>
 		<div id="wrapper">
 			<header>
-				<h1 i18n="application.title">Typing practice</h1>
+				<h1 data-i18n="application.title">Typing practice</h1>
 				<nav>
 					<ul>
 						<li>
 							<button id="beginBtn" accesskey="1">
 								<svg width="24" height="24" viewBox="120 -840 720 720" aria-hidden="true"><use href="static/icons/play_arrow.svg#a"></use></svg>
-								<span i18n="application.begin">Begin</span>
+								<span data-i18n="application.begin">Begin</span>
 							</button>
 						</li>
 						<li>
 							<button id="introductionBtn" accesskey="2">
 								<svg width="24" height="24" viewBox="0 -960 960 960" aria-hidden="true"><use href="static/icons/book.svg#a"></use></svg>
-								<span i18n="application.introduction">Introduction</span>
+								<span data-i18n="application.introduction">Introduction</span>
 							</button>
 						</li>
 						<li>
 							<button id="settingsBtn" accesskey="3">
 								<svg width="24" height="24" viewBox="0 -960 960 960" aria-hidden="true"><use href="static/icons/settings.svg#a"></use></svg>
-								<span i18n="application.openSettings">Settings</span>
+								<span data-i18n="application.openSettings">Settings</span>
 							</button>
 						</li>
 						<li>
 							<a href="https://lauritzt.dk/en/contact/" accesskey="4">
 								<svg width="24" height="24" viewBox="0 -960 960 960" aria-hidden="true"><use href="static/icons/feedback.svg#a"></use></svg>
-								<span i18n="application.giveFeedback">Give feedback</span>
+								<span data-i18n="application.giveFeedback">Give feedback</span>
 							</a>
 						</li>
 					</ul>
@@ -47,16 +47,16 @@
 			<div id="livePromptPolite" aria-live="polite"></div>
 
 			<section id="practice" hidden>
-				<input id="wordInput" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" list="_autocompleteOff" spellcheck="false" aria-label="" i18n="[aria-roledescription]=practice.inputField">
+				<input id="wordInput" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" list="_autocompleteOff" spellcheck="false" aria-label="" data-i18n="[aria-roledescription]=practice.inputField">
 			</section>
 
 			<section id="settings" hidden>
-				<h2 tabindex="-1" i18n="settings.heading">Settings</h2>
+				<h2 tabindex="-1" data-i18n="settings.heading">Settings</h2>
 				<fieldset>
-					<legend><h3 i18n="settings.language.heading">Language settings</h3></legend>
+					<legend><h3 data-i18n="settings.language.heading">Language settings</h3></legend>
 
 					<div>
-						<label for="interfaceLanguage" i18n="settings.language.heading">Interface language</label>
+						<label for="interfaceLanguage" data-i18n="settings.language.heading">Interface language</label>
 						<select id="interfaceLanguage" data-settings-key="language.interfaceLanguage">
 							<option value="en">English</option>
 							<option value="en-us">English (United States)</option>
