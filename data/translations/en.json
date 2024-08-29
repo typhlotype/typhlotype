@@ -26,6 +26,12 @@
 		"openSettings": "Settings",
 		"giveFeedback": "Give feedback"
 	},
+	"settings": {
+		"heading": "Settings",
+		"language": {
+			"heading": "Interface language"
+		}
+	},
 	"charMap": {
 		" ": "space"
 	},
