@@ -5,8 +5,7 @@ export async function init() {
 	SettingsChangeEvent.subscribe(saveNewSettings);
 	SettingsChangeEvent.subscribe(updatePageFromSettings);
 
-	// @ts-ignore
-	for (const element of document.querySelectorAll("[data-action-fieldset=\"apply\"]")) {
+	for (const element of document.querySelectorAll("[data-action-fieldset=\"apply\"]") as unknown as [Element]) {
 		element.addEventListener("click", () => {
 			updateSettingsFromPage();
 		});
@@ -35,8 +34,7 @@ function saveNewSettings() {
 function updateSettingsFromPage() {
 	const newSettings: Partial<Settings> = {};
 
-	// @ts-ignore
-	for (const element of document.querySelectorAll("[data-settings-key]")) {
+	for (const element of document.querySelectorAll("[data-settings-key]") as unknown as [Element]) {
 		updateSettingsFromElement(element, newSettings);
 	}
 
@@ -72,8 +70,7 @@ function updateSettingsFromElement(element: Element, newSettings: Partial<Settin
 }
 
 export function updatePageFromSettings() {
-	// @ts-ignore
-	for (const element of document.querySelectorAll("[data-settings-key]")) {
+	for (const element of document.querySelectorAll("[data-settings-key]") as unknown as [Element]) {
 		const keyPath = element.getAttribute("data-settings-key");
 		if (!keyPath) {
 			continue;
