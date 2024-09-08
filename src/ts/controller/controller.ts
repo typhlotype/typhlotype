@@ -18,6 +18,10 @@ import { applyI18nLabels } from "../ui/applyI18nLabels.js";
 export class Controller {
 	model: Model;
 
+	/**
+	 * Private constructor to enforce the use of the static 'new' method.
+	 * @param model The model instance.
+	 */
 	private constructor(model: Model) {
 		this.model = model;
 	}

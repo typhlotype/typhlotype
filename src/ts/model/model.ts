@@ -101,7 +101,7 @@ export class Model {
 
 		if (settings.keyPrompt.actionDescription) {
 			promptText += i18n("prompt.press") + i18n(" ");
-		};
+		}
 
 		if (settings.keyPrompt.letter) {
 			promptText += charMap(letter) + ". ";
@@ -125,7 +125,7 @@ export class Model {
 	 * Advances the position in the word, or moves to the next word if the
 	 * current word has been completed.
 	 */
-	increment() {
+	advanceLetter() {
 		if (this.position < this.word.length) {
 			this.position += 1;
 		} else {
@@ -134,13 +134,14 @@ export class Model {
 	}
 
 	/**
-	 * Handles a `RawLetterInputEvent`.
+	 * Handles a `RawLetterInputEvent` by advancing to the next letter and
+	 * emitting a `LetterInputEvent`.
 	 *
 	 * @param event The event to handle.
 	 */
 	letterInput(event: RawLetterInputEvent) {
 		if (event.letter == this.requestedLetter()) {
-			this.increment();
+			this.advanceLetter();
 			this.prompt();
 			new LetterInputEvent(event.letter, 1).send();
 		} else {

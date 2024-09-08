@@ -15,16 +15,20 @@ function updateWordDisplay(event: LetterPromptEvent) {
 	const typed = event.word.substring(0, event.wordPosition);
 	const remaining = event.word.substring(event.wordPosition);
 
-
-	const typedElement = document.createElement("span");
-	typedElement.setAttribute("class", "typed");
-	typedElement.appendChild(document.createTextNode(typed));
-
-	const remainingElement = document.createElement("span");
-	remainingElement.setAttribute("class", "remaining");
-	remainingElement.appendChild(document.createTextNode(remaining));
+	const children = [
+		createSpanWithText(typed, "typed"),
+		createSpanWithText(remaining, "remaining"),
+	];
 
 	element.innerHTML = "";
-	element.appendChild(typedElement);
-	element.appendChild(remainingElement);
+	for (const child of children) {
+		element.appendChild(child)
+	}
+}
+
+function createSpanWithText(text: string, className: string) {
+	const span = document.createElement("span");
+	span.setAttribute("class", className);
+	span.appendChild(document.createTextNode(text));
+	return span;
 }
