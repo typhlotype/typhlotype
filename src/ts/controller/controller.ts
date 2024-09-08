@@ -10,6 +10,11 @@ import { RandomWordGenerator } from "../model/randomWordGenerator.js";
 import { settings } from "../model/settingsModel.js";
 import { applyI18nLabels } from "../ui/applyI18nLabels.js";
 
+/**
+ * The Controller class is responsible for handling platform-dependant data
+ * sources, such as handling user input, storing settings, and fetching resource
+ * files.
+ */
 export class Controller {
 	model: Model;
 

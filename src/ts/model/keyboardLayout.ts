@@ -1,11 +1,31 @@
 import { i18n } from "./i18nMap.js";
 import { KeyboardLayout } from "./model.js";
 
+
+/**
+ * Represents a keyboard layout where each letter has its own key.
+ */
 export class StandardKeyboardLayout implements KeyboardLayout {
+	/**
+	 * Represents the layout of a keyboard.
+	 */
 	layout: [string, string, string];
+	/**
+	 * The internal names of fingers.
+	 */
 	fingers = ["pinky", "ringFinger", "middleFinger", "indexFinger"];
+	/**
+	 * The internal names of heights, i.e. above or below. `null` means the home
+	 * row.
+	 */
 	heights = ["above", null, "below"];
+	/**
+	 * The column number of the left home key (F on a QWERTY keyboard).
+	 */
 	leftHome = 3;
+	/**
+	 * The column number of the right home key (J on a QWERTY keyboard).
+	 */
 	rightHome = 6;
 
 	constructor(layout: [string, string, string]) {
@@ -70,6 +90,13 @@ export class StandardKeyboardLayout implements KeyboardLayout {
 		return locationHint;
 	}
 
+	/**
+	 * Searches for a letter in the layout.
+	 *
+	 * @param letter The letter to search for.
+	 * @returns The location of the letter in the layout, or `undefined` if the
+	 * letter is not found.
+	 */
 	searchForLetter(letter: string): Location | undefined {
 		for (let r = 0; r < this.layout.length; r++) {
 			for (let c = 0; c < this.layout[r].length; c++) {
@@ -82,8 +109,12 @@ export class StandardKeyboardLayout implements KeyboardLayout {
 	}
 }
 
-class Location {
-	row: number;
+/**
+ * Represents a location in a `StandardKeyboardLayout`. The value depends on the
+ * internal representation in the given `StandardKeyboardLayout`, and may thus
+ * not portable between different instances of `StandardKeyboardLayout`.
+ */
+class Location {	row: number;
 	column: number;
 
 	constructor(row: number, column: number) {
