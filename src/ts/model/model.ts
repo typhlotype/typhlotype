@@ -78,7 +78,7 @@ export class Model {
 
 	/**
 	 * Generates a prompt for the currently requested letter, and emits an
-	 * `AssertivePromptEvent` to prompt the ures.
+	 * `AssertivePromptEvent` to prompt the user.
 	 *
 	 * @param prefix An optional prefix to add to the prompt.
 	 */
@@ -110,14 +110,20 @@ export class Model {
 		}
 
 		if (settings.keyPrompt.phoneticSpellingAlphabet) {
-			if (phoneticSpellingAlphabet(letter) !== undefined) {
+			if (phoneticSpellingAlphabet(letter)) {
 				promptText += phoneticSpellingAlphabet(letter) + ". ";
+			}
+		}
+
+		let keyLocationHint = this.keyboardLayout.fingerLocation(letter);
+		if (settings.keyPrompt.locationAssistance && keyLocationHint) {
+			if (keyLocationHint) {
+				promptText += keyLocationHint + ". ";
 			}
 		}
 
 		new AssertivePromptEvent(promptText, "wordPrompt").send();
 
-		let keyLocationHint = this.keyboardLayout.fingerLocation(letter);
 		if (keyLocationHint) {
 			delayedPrompt(keyLocationHint + ". ",  "wordPromptHint");
 		}

@@ -93,6 +93,7 @@ export class Controller {
 			cancelDelayedPrompt("wordPromptHint");
 		});
 
+		document.querySelector("#loader")?.setAttribute("hidden", "");
 		document.querySelector("#wrapper")?.removeAttribute("hidden");
 	}
 
