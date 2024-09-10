@@ -26,6 +26,14 @@
 		"openSettings": "Indstillinger",
 		"giveFeedback": "Giv feedback"
 	},
+	"settings": {
+		"heading": "Indstillinger",
+		"language": {
+			"heading": "Sprogindstillinger",
+			"interfaceLanguage": "Grænsefladesprog",
+			"wordSetLanguage": "Skrivesprog"
+		}
+	},
 	"charMap": {
 		" ": "mellemrum"
 	},

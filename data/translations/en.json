@@ -29,7 +29,9 @@
 	"settings": {
 		"heading": "Settings",
 		"language": {
-			"heading": "Interface language"
+			"heading": "Language settings",
+			"interfaceLanguage": "Interface language",
+			"wordSetLanguage": "Wordset language"
 		}
 	},
 	"charMap": {
