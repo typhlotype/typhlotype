@@ -83,7 +83,9 @@ export class Controller {
 			if (e.data == null) {
 				// do nothing
 			} else {
-				new RawLetterInputEvent(e.data[e.data.length-1]).send();
+				for (const letter of e.data) {
+					new RawLetterInputEvent(letter).send();
+				}
 			}
 		});
 
