@@ -1,4 +1,4 @@
-import { WordGenerator } from "./model";
+import { WordGenerator } from "./wordGenerator";
 
 export class RandomWordGenerator implements WordGenerator {
 	words: string[];

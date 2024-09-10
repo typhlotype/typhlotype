@@ -6,7 +6,7 @@ import * as livePrompt from "../ui/livePrompt.js";
 import * as wordDisplay from "../ui/wordDisplay.js";
 import { RawLetterInputEvent } from "../events/input/rawLetterInputEvent.js";
 import { cancelDelayedPrompt } from "../model/delayedPrompt.js";
-import { RandomWordGenerator } from "../model/randomWordGenerator.js";
+import { RandomWordGenerator } from "../model/wordGenerators/randomWordGenerator.js";
 import { settings } from "../model/settingsModel.js";
 import { applyI18nLabels } from "../ui/applyI18nLabels.js";
 
