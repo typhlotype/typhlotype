@@ -1,5 +1,5 @@
-import { i18n } from "./i18nMap.js";
-import { KeyboardLayout } from "./keyboardLayout.js";
+import { i18n } from "../i18nMap.js";
+import { KeyboardLayout } from "../keyboardLayout.js";
 
 
 /**
