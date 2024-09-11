@@ -24,7 +24,8 @@
 		"begin": "Begynd",
 		"introduction": "Vejledning",
 		"openSettings": "Indstillinger",
-		"giveFeedback": "Giv feedback"
+		"giveFeedback": "Giv feedback",
+		"giveFeedbackShort": "Feedback"
 	},
 	"settings": {
 		"heading": "Indstillinger",

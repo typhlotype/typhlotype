@@ -24,7 +24,8 @@
 		"begin": "Begin",
 		"introduction": "Introduction",
 		"openSettings": "Settings",
-		"giveFeedback": "Give feedback"
+		"giveFeedback": "Give feedback",
+		"giveFeedbackShort": "Feedback"
 	},
 	"settings": {
 		"heading": "Settings",
