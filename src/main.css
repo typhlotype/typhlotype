@@ -51,9 +51,9 @@ nav > ul button, nav > ul a, .horizButtons button {
 	height: 6.5rem;
 	display: flex;
 	justify-content: center;
-	align-content: center;
+	align-items: center;
 	flex-direction: column;
-	text-align: center;
+	flex-wrap: wrap;
 	gap: 0.25rem;
 }
 
