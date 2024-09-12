@@ -2,7 +2,7 @@ import { WordGenerator } from "../wordGenerator";
 
 export class RandomWordGenerator implements WordGenerator {
 	words: string[];
-	previousWords: RepetitionMemory<string> = new RepetitionMemory(5);
+	previousWords: RepetitionMemory<string> = new RepetitionMemory(20);
 
 	constructor(words: string[]) {
 		this.words = words;
