@@ -2,8 +2,9 @@ interface Map { [key: string]: any }
 
 let map: Map = {};
 
-export function setMap(newMap: any) {
+export function setMap(newMap: Map, languageCode: string) {
 	map = newMap;
+	map.languageCode = languageCode;
 }
 
 export function i18n(keyPath: string): string {

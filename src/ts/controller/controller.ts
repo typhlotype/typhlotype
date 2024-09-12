@@ -35,7 +35,7 @@ export class Controller {
 			dataFetch.get(`words/${settings.language.wordSetLanguage}/${settings.language.wordSet}.json`),
 			dataFetch.get(`translations/${settings.language.interfaceLanguage}.json`),
 		]);
-		i18nMap.setMap(translation);
+		i18nMap.setMap(translation, settings.language.interfaceLanguage || "en");
 
 		const wordGenerator = new RandomWordGenerator(words);
 		const model = new Model(wordGenerator);
