@@ -22,7 +22,7 @@
 	"application": {
 		"title": "Typhlotype",
 		"begin": "Begin",
-		"introduction": "Introduction",
+		"progress": "Progress",
 		"openSettings": "Settings",
 		"giveFeedback": "Give feedback",
 		"giveFeedbackShort": "Feedback"

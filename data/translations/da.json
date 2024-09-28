@@ -22,7 +22,7 @@
 	"application": {
 		"title": "Typhlotype",
 		"begin": "Begynd",
-		"introduction": "Vejledning",
+		"progress": "Statistik",
 		"openSettings": "Indstillinger",
 		"giveFeedback": "Giv feedback",
 		"giveFeedbackShort": "Feedback"
