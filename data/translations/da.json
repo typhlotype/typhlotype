@@ -25,7 +25,8 @@
 		"progress": "Statistik",
 		"openSettings": "Indstillinger",
 		"giveFeedback": "Giv feedback",
-		"giveFeedbackShort": "Feedback"
+		"giveFeedbackShort": "Feedback",
+		"info": "Typhlotype er designet til at hjælpe mennesker med synshandicap med at lære og øve at taste på tastatur. Det er stadig under udvikling og kan indeholde fejl."
 	},
 	"settings": {
 		"heading": "Indstillinger",

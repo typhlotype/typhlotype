@@ -25,7 +25,8 @@
 		"progress": "Progress",
 		"openSettings": "Settings",
 		"giveFeedback": "Give feedback",
-		"giveFeedbackShort": "Feedback"
+		"giveFeedbackShort": "Feedback",
+		"info": "Typhlotype is designed to help people with visual impairment learn and practice typing. It is currently still in development, and may contain faults."
 	},
 	"settings": {
 		"heading": "Settings",
