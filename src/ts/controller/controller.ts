@@ -9,6 +9,7 @@ import { cancelDelayedPrompt } from "../model/delayedPrompt.js";
 import { RandomWordGenerator } from "../model/wordGenerators/randomWordGenerator.js";
 import { settings } from "../model/settingsModel.js";
 import { applyI18nLabels } from "../ui/applyI18nLabels.js";
+import { SettingsChangeEvent } from "../events/SettingsChangeEvent.js";
 
 /**
  * The Controller class is responsible for handling platform-dependant data
@@ -16,17 +17,14 @@ import { applyI18nLabels } from "../ui/applyI18nLabels.js";
  * files.
  */
 export class Controller {
-	model: Model;
+	model: Model | null = null;
 
 	/**
 	 * Private constructor to enforce the use of the static 'new' method.
-	 * @param model The model instance.
 	 */
-	private constructor(model: Model) {
-		this.model = model;
-	}
+	private constructor() {}
 
-	static async new(): Promise<Controller> {
+	async init() {
 		// Load settings
 		settingsController.init();
 
@@ -40,12 +38,12 @@ export class Controller {
 		const wordGenerator = new RandomWordGenerator(words);
 		const model = new Model(wordGenerator);
 
-		settingsController.updatePageFromSettings();
-
 		livePrompt.init();
 		wordDisplay.init();
 
-		let controller = new Controller(model);
+		this.model = model;
+
+		const controller = this;
 
 		if (document.readyState === "loading") {
 			document.addEventListener("DOMContentLoaded", async function() {
@@ -54,15 +52,21 @@ export class Controller {
 		} else {
 			controller.initDom();
 		}
+	}
 
+	static async new(): Promise<Controller> {
+		let controller = new Controller();
+		await controller.init();
+		SettingsChangeEvent.subscribe((e) => {controller.init()});
 		return controller;
 	}
 
 	initDom() {
+		settingsController.updatePageFromSettings();
 		applyI18nLabels();
 
 		document.querySelector("#beginBtn")?.addEventListener("click", () => {
-			this.model.restart();
+			this.model?.restart();
 			document.querySelector("#practice")?.removeAttribute("hidden");
 			(document.querySelector("#wordInput") as HTMLElement)?.focus();
 		});

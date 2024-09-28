@@ -3,7 +3,7 @@ export class Inner<T> {
 
 	send(event: T) {
 		for (const subscriber of this.subscribers) {
-			subscriber(event);
+			const ret = subscriber(event);
 		}
 	}
 

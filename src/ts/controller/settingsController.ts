@@ -1,9 +1,12 @@
 import { Settings, applySettings, settings } from "../model/settingsModel.js";
 import { SettingsChangeEvent } from "../events/SettingsChangeEvent.js";
+import { applyI18nLabels } from "../ui/applyI18nLabels.js";
+import * as i18nMap from "../model/i18nMap.js";
+import * as dataFetch from "../controller/dataFetch.js";
+
 
 export async function init() {
 	SettingsChangeEvent.subscribe(saveNewSettings);
-	SettingsChangeEvent.subscribe(updatePageFromSettings);
 
 	for (const element of document.querySelectorAll("[data-action-fieldset=\"apply\"]") as unknown as [Element]) {
 		element.addEventListener("click", () => {
@@ -20,7 +23,7 @@ export async function init() {
 
 		const savedSettings = JSON.parse(savedSettingsString);
 
-		applySettings(savedSettings);
+		applySettings(savedSettings, false);
 	} catch (e) {
 		console.error(e);
 	}
