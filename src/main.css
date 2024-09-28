@@ -69,6 +69,10 @@ button, input, nav > ul a, select {
 	border: solid var(--color-fg) 0.1rem;
 }
 
+button:disabled, input:disabled, nav > ul a:disabled, select:disabled {
+	opacity: 0.5;
+}
+
 input {
 	background: var(--color-bg);
 }
