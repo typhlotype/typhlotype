@@ -37,6 +37,8 @@ export class Model {
 	 */
 	wordGenerator: WordGenerator;
 
+	rawLetterInputEventUnsubscribeToken: any;
+
 	/**
 	 * Creates a new Model instance.
 	 *
@@ -52,7 +54,7 @@ export class Model {
 		this.wordGenerator = wordGenerator;
 		this.word = this.wordGenerator.getNextWord();
 
-		RawLetterInputEvent.subscribe((e) => this.letterInput(e));
+		this.rawLetterInputEventUnsubscribeToken = RawLetterInputEvent.subscribe((e) => this.letterInput(e));
 	}
 
 	/**
@@ -164,6 +166,10 @@ export class Model {
 	nextWord() {
 		this.word = this.wordGenerator.getNextWord();
 		this.position = 0;
+	}
+
+	drop() {
+		RawLetterInputEvent.unsubscribe(this.rawLetterInputEventUnsubscribeToken);
 	}
 }
 

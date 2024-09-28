@@ -41,73 +41,80 @@ export class Controller {
 		]);
 		i18nMap.setMap(translation, settings.language.interfaceLanguage || "en");
 
+		this.model?.drop();
+
 		const wordGenerator = new RandomWordGenerator(words);
 		const model = new Model(wordGenerator);
+		this.model = model;
+
 
 		if (!reinit) {
 			livePrompt.init();
 			wordDisplay.init();
 		}
 
-		this.model = model;
-
 		const controller = this;
 
 		if (document.readyState === "loading") {
 			document.addEventListener("DOMContentLoaded", async function() {
-				controller.initDom();
+				controller.initDom(reinit);
 			});
 		} else {
-			controller.initDom();
+			controller.initDom(reinit);
 		}
 	}
 
 	static async new(): Promise<Controller> {
 		let controller = new Controller();
 		await controller.init();
-		SettingsChangeEvent.subscribe((e) => {controller.init()});
+		SettingsChangeEvent.subscribe((e) => {controller.init(true)});
 		return controller;
 	}
 
-	initDom() {
+	private initDom(reinit: boolean) {
 		settingsController.updatePageFromSettings();
 		applyI18nLabels();
 
-		document.querySelector("#beginBtn")?.addEventListener("click", () => {
-			this.model?.restart();
-			document.querySelector("#practice")?.removeAttribute("hidden");
-			(document.querySelector("#wordInput") as HTMLElement)?.focus();
-		});
+		if (!reinit) {
+			document.querySelector("#beginBtn")?.addEventListener("click", () => {
+				this.model?.restart();
+				document.querySelector("#practice")?.removeAttribute("hidden");
+				(document.querySelector("#wordInput") as HTMLElement)?.focus();
+			});
 
-		document.querySelector("#settingsBtn")?.addEventListener("click", function() {
-			document.querySelector("#settings")?.removeAttribute("hidden");
-			(document.querySelector("#settings > h2") as HTMLElement)?.focus();
-		});
+			document.querySelector("#settingsBtn")?.addEventListener("click", function() {
+				document.querySelector("#settings")?.removeAttribute("hidden");
+				(document.querySelector("#settings > h2") as HTMLElement)?.focus();
+			});
 
-		document.querySelector("#wordDisplay")?.addEventListener("click", () => {
-			(document.querySelector("#wordInput") as HTMLElement)?.focus();
-		});
+			document.querySelector("#wordDisplay")?.addEventListener("click", () => {
+				(document.querySelector("#wordInput") as HTMLElement)?.focus();
+			});
 
-		document.querySelector("#wordInput")?.addEventListener("input", function(_e) {
-			let e = _e as InputEvent;
-			cancelDelayedPrompt("wordPromptHint");
+			document.querySelector("#wordInput")?.addEventListener("input", function(_e) {
+				let e = _e as InputEvent;
+				cancelDelayedPrompt("wordPromptHint");
 
-			if (e.data == null) {
-				// do nothing
-			} else {
-				for (const letter of e.data) {
-					new RawLetterInputEvent(letter).send();
+				if (e.data == null) {
+					// do nothing
+				} else {
+					for (const letter of e.data) {
+						new RawLetterInputEvent(letter).send();
+					}
 				}
-			}
-		});
+			});
 
-		document.querySelector("#wordInput")?.addEventListener("blur", function() {
-			cancelDelayedPrompt("wordPromptHint");
-		});
+			document.querySelector("#wordInput")?.addEventListener("blur", function() {
+				cancelDelayedPrompt("wordPromptHint");
+			});
+		}
 
 		document.querySelector("#loader")?.setAttribute("hidden", "");
 		document.querySelector("#wrapper")?.removeAttribute("hidden");
 	}
 
+	drop() {
+		this.model?.drop();
+	}
 }
 
