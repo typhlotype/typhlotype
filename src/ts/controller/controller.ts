@@ -24,9 +24,15 @@ export class Controller {
 	 */
 	private constructor() {}
 
-	async init() {
+	/**
+	 * Initializes or re-initializes the application by loading settings, words,
+	 * and translations.
+	 */
+	async init(reinit=false) {
 		// Load settings
-		settingsController.init();
+		if (!reinit) {
+			settingsController.init();
+		}
 
 		// Load words and i18n data
 		const [words, translation] = await Promise.all([
@@ -38,8 +44,10 @@ export class Controller {
 		const wordGenerator = new RandomWordGenerator(words);
 		const model = new Model(wordGenerator);
 
-		livePrompt.init();
-		wordDisplay.init();
+		if (!reinit) {
+			livePrompt.init();
+			wordDisplay.init();
+		}
 
 		this.model = model;
 
