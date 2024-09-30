@@ -1,8 +1,5 @@
 import { Settings, applySettings, settings } from "../model/settingsModel.js";
 import { SettingsChangeEvent } from "../events/SettingsChangeEvent.js";
-import { applyI18nLabels } from "../ui/applyI18nLabels.js";
-import * as i18nMap from "../model/i18nMap.js";
-import * as dataFetch from "../controller/dataFetch.js";
 
 
 export async function init() {

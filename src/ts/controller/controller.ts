@@ -10,7 +10,7 @@ import { RandomWordGenerator } from "../model/wordGenerators/randomWordGenerator
 import { settings } from "../model/settingsModel.js";
 import { applyI18nLabels } from "../ui/applyI18nLabels.js";
 import { SettingsChangeEvent } from "../events/SettingsChangeEvent.js";
-import {  showSection } from "../ui/ui.js";
+import { showSection } from "../ui/ui.js";
 
 /**
  * The Controller class is responsible for handling platform-dependant data
