@@ -10,6 +10,7 @@ import { RandomWordGenerator } from "../model/wordGenerators/randomWordGenerator
 import { settings } from "../model/settingsModel.js";
 import { applyI18nLabels } from "../ui/applyI18nLabels.js";
 import { SettingsChangeEvent } from "../events/SettingsChangeEvent.js";
+import {  showSection } from "../ui/ui.js";
 
 /**
  * The Controller class is responsible for handling platform-dependant data
@@ -78,12 +79,12 @@ export class Controller {
 		if (!reinit) {
 			document.querySelector("#beginBtn")?.addEventListener("click", () => {
 				this.model?.restart();
-				document.querySelector("#practice")?.removeAttribute("hidden");
+				showSection("#practice");
 				(document.querySelector("#wordInput") as HTMLElement)?.focus();
 			});
 
 			document.querySelector("#settingsBtn")?.addEventListener("click", function() {
-				document.querySelector("#settings")?.removeAttribute("hidden");
+				showSection("#settings");
 				(document.querySelector("#settings > h2") as HTMLElement)?.focus();
 			});
 

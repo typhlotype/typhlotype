@@ -49,13 +49,13 @@
 			<div id="livePromptAssertive" aria-live="assertive" class="visuallyHidden"></div>
 			<div id="livePromptPolite" aria-live="polite" class="visuallyHidden"></div>
 
-			<section id="practice" hidden>
+			<section id="practice" hidden data-section-type="main">
 				<p id="wordDisplay"></p>
 
 				<input id="wordInput" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" list="_autocompleteOff" spellcheck="false" aria-label="" class="visuallyHidden">
 			</section>
 
-			<section id="settings" hidden>
+			<section id="settings" hidden data-section-type="main">
 				<h2 tabindex="-1" data-i18n="settings.heading"></h2>
 				<fieldset>
 					<legend><h3 data-i18n="settings.language.heading"></h3></legend>
@@ -161,7 +161,7 @@
 				</fieldset>
 			</section>
 
-			<section id="info">
+			<section id="info" data-section-type="main">
 				<p data-i18n="application.info"></p>
 			</section>
 		</div>
