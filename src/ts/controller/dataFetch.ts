@@ -6,6 +6,9 @@
  */
 export async function get(path: string) {
 	let res = await fetch("../data/" + path);
+	if (!res.ok) {
+		throw new Error(`Failed to fetch data at ${path}: ${res.status} ${res.statusText}`);
+	}
 	let data = await res.json();
 	return data;
 }
