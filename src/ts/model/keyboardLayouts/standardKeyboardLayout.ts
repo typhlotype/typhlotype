@@ -114,7 +114,8 @@ export class StandardKeyboardLayout implements KeyboardLayout {
  * internal representation in the given `StandardKeyboardLayout`, and may thus
  * not portable between different instances of `StandardKeyboardLayout`.
  */
-class Location {	row: number;
+class Location {
+	row: number;
 	column: number;
 
 	constructor(row: number, column: number) {

@@ -7,6 +7,7 @@ import * as wordDisplay from "../ui/wordDisplay.js";
 import { RawLetterInputEvent } from "../events/input/rawLetterInputEvent.js";
 import { cancelDelayedPrompt } from "../model/delayedPrompt.js";
 import { RandomWordGenerator } from "../model/wordGenerators/randomWordGenerator.js";
+import { StandardKeyboardLayout } from "../model/keyboardLayouts/standardKeyboardLayout.js";
 import { settings } from "../model/settingsModel.js";
 import { applyI18nLabels } from "../ui/applyI18nLabels.js";
 import { SettingsChangeEvent } from "../events/SettingsChangeEvent.js";
@@ -36,17 +37,18 @@ export class Controller {
 		}
 
 		// Load words and i18n data
-		const [words, translation] = await Promise.all([
+		const [words, translation, keyboardLayoutSpec] = await Promise.all([
 			dataFetch.get(`words/${settings.language.wordSetLanguage}/${settings.language.wordSet}.json`),
 			dataFetch.get(`translations/${settings.language.interfaceLanguage}.json`),
+			dataFetch.get(`keyboardLayouts/${settings.input.layoutRegion}/${settings.input.layoutVariant}.json`),
 		]);
 		i18nMap.setMap(translation, settings.language.interfaceLanguage || "en");
 
 		this.model?.drop();
 
 		const wordGenerator = new RandomWordGenerator(words);
-		const model = new Model(wordGenerator);
-		this.model = model;
+		const keyboardLayout = new StandardKeyboardLayout(keyboardLayoutSpec)
+		this.model = new Model(wordGenerator, keyboardLayout);
 
 
 		if (!reinit) {

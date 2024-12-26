@@ -1,5 +1,4 @@
 import { charMap, i18n, phoneticSpellingAlphabet } from "./i18nMap.js";
-import { StandardKeyboardLayout } from "./keyboardLayouts/standardKeyboardLayout.js";
 import { AssertivePromptEvent } from "../events/textPrompt/assertivePromptEvent.js";
 import { StateChangeEvent } from "../events/StateChangeEvent.js";
 import { LetterPromptEvent } from "../events/activityPrompt/letterPromptEvent.js";
@@ -44,13 +43,9 @@ export class Model {
 	 *
 	 * @param wordGenerator The word generator to use to get new words.
 	 */
-	constructor(wordGenerator: WordGenerator) {
+	constructor(wordGenerator: WordGenerator, keyboardLayout: KeyboardLayout) {
 		this.position = 0;
-		this.keyboardLayout = new StandardKeyboardLayout([
-			"QWERTYUIOP",
-			"ASDFGHJKL",
-			"ZXCVBNM"
-		]);
+		this.keyboardLayout = keyboardLayout;
 		this.wordGenerator = wordGenerator;
 		this.word = this.wordGenerator.getNextWord();
 

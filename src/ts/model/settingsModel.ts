@@ -7,7 +7,7 @@ export class Settings {
 		wordSet: "200" as string | undefined,
 	};
 	input = {
-		layoutRegion: "universal",
+		layoutRegion: "basic",
 		layoutVariant: "qwerty",
 		angleMod: "right" as "left" | "right" | "straight",
 	};

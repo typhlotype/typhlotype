@@ -2,6 +2,7 @@
 
 import * as fs from "jsr:@std/fs";
 import * as cli from "jsr:@std/cli";
+import * as clispinner from "jsr:@std/cli/unstable-spinner";
 import * as http from "jsr:@std/http";
 
 let buildLock = false;
@@ -9,7 +10,7 @@ const args = cli.parseArgs(Deno.args, { "boolean": ["watch", "serve", "deploy"] 
 
 async function handleFiles() {
 	buildLock = true;
-	const spinner = new cli.Spinner();
+	const spinner = new clispinner.Spinner();
 	spinner.message = "Building...";
 	spinner.start();
 
