@@ -7,7 +7,7 @@ export function showSection(selectors: string) {
 	// Hide all other elements
 	const sectionType = element.getAttribute("data-section-type");
 	if (sectionType) {
-		for (const otherElement of document.querySelectorAll("[data-section-type=\"" + sectionType.replace("\"", "\\\"") + "\"]") as unknown as [Element]) {
+		for (const otherElement of document.querySelectorAll("[data-section-type=\"" + sectionType.replace("\\", "\\\\").replace("\"", "\\\"") + "\"]") as unknown as [Element]) {
 			otherElement.setAttribute("hidden", "true");
 		}
 	}
