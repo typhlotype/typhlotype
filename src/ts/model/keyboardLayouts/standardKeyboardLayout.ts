@@ -46,7 +46,7 @@ export class StandardKeyboardLayout implements KeyboardLayout {
 			// left side of keyboard
 			columnSide = "left";
 			columnFinger = loc.column + this.leftHome - 3;
-		} else if (loc.column >= this.rightHome - 1 && loc.column <= this.rightHome + 3) {
+		} else if (loc.column >= this.rightHome - 1 && loc.column <= this.rightHome + 4) {
 			// right side of keyboard
 			columnSide = "right";
 			columnFinger = this.rightHome + 3 - loc.column;
@@ -55,10 +55,13 @@ export class StandardKeyboardLayout implements KeyboardLayout {
 			return;
 		}
 
-		let extendedFinger = false;
+		let extendedFinger = RelativeDirection.None;
 		if (columnFinger == 4) {
 			columnFinger = 3;
-			extendedFinger = true;
+			extendedFinger = RelativeDirection.TowardsCenter;
+		} else if (columnFinger == -1) {
+			columnFinger = 0;
+			extendedFinger = RelativeDirection.TowardsEdge;
 		}
 
 		let locationHint = i18n("prompt.keyboard." + columnSide) + i18n(" ") + i18n("prompt.keyboard." + this.fingers[columnFinger]);
@@ -73,13 +76,16 @@ export class StandardKeyboardLayout implements KeyboardLayout {
 		}
 
 		if (extendedFinger) {
-			switch (columnSide) {
+			switch (relativeDirectionToDirection(extendedFinger, columnSide)) {
 				case "left":
 					locationHint += i18n(" ") + i18n("prompt.keyboard.toTheRight");
 					break;
 				case "right":
 					locationHint += i18n(" ") + i18n("prompt.keyboard.toTheLeft");
 					break;
+				default:
+					console.warn("Extended finger with no direction", extendedFinger, columnSide);
+					return;
 			}
 		}
 
@@ -121,5 +127,32 @@ class Location {
 	constructor(row: number, column: number) {
 		this.row = row;
 		this.column = column;
+	}
+}
+
+enum RelativeDirection {
+	None = 0,
+	TowardsCenter = 1,
+	TowardsEdge = 2,
+}
+
+function relativeDirectionToDirection(efd: RelativeDirection, columnSide: "left" | "right"): "left" | "right" | undefined {
+	const None = RelativeDirection.None;
+	const TowardsCenter = RelativeDirection.TowardsCenter;
+	const TowardsEdge = RelativeDirection.TowardsEdge;
+	if (
+		(efd == TowardsCenter && columnSide == "left")
+		|| (efd == TowardsEdge && columnSide == "right")
+	) {
+		return "right";
+	} else if (
+		(efd == TowardsCenter && columnSide == "right")
+		|| (efd == TowardsEdge && columnSide == "left")
+	) {
+		return "left";
+	} else if (efd == None) {
+		return;
+	} else {
+		throw new Error("Unreachable");
 	}
 }
