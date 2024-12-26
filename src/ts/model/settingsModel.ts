@@ -9,7 +9,7 @@ export class Settings {
 	input = {
 		layoutRegion: "basic",
 		layoutVariant: "qwerty",
-		angleMod: "right" as "left" | "right" | "straight",
+		angleMod: "straight" as "left" | "right" | "straight",
 	};
 	keyPrompt = {
 		actionDescription: true,
