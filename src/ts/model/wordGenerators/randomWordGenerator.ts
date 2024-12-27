@@ -1,4 +1,4 @@
-import { WordGenerator } from "../wordGenerator";
+import { WordGenerator } from "../wordGenerator.js";
 
 export class RandomWordGenerator implements WordGenerator {
 	words: string[];
