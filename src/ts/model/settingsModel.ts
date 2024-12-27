@@ -24,12 +24,19 @@ export class Settings {
 	};
 
 	constructor() {}
+
+	repair() {
+		if (!this.input.layoutRegion) {
+			this.input.layoutRegion = "basic";
+		}
+	}
 }
 
 export let settings = new Settings();
 
 export function applySettings(newSettings: Partial<Settings>, event=true) {
 	mergeObjects(settings, newSettings);
+	settings.repair();
 
 	if (event) {
 		new SettingsChangeEvent().send();
