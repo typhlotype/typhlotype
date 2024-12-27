@@ -62,19 +62,27 @@
 
 					<div>
 						<label for="interfaceLanguage" data-i18n="settings.language.interfaceLanguage"></label>
-						<select id="interfaceLanguage" data-settings-key="language.interfaceLanguage">
+						<select id="interfaceLanguage" data-settings-key="language.interfaceLanguage" data-settings-dynamic-reload="instant">
 							<option value="en" language="en">English</option>
 							<option value="da" language="da">Dansk</option>
 						</select>
 					</div>
 
-
 					<div>
 						<label for="wordSetLanguage" data-i18n="settings.language.wordSetLanguage"></label>
-						<select id="wordSetLanguage" data-settings-key="language.wordSetLanguage">
+						<select id="wordSetLanguage" data-settings-key="language.wordSetLanguage" data-settings-dynamic-reload="instant">
 							<option value="en" lang="en">English</option>
-							<option value="en-us" lang="en">English (United States)</option>
+							<option value="en-us" lang="en-us">English (United States)</option>
 							<option value="da" lang="da">Dansk</option>
+						</select>
+					</div>
+
+					<div>
+						<label for="wordSetVariant" data-i18n="settings.language.wordSetVariant"></label>
+						<select id="wordSetVariant" data-settings-key="language.wordSetVariant" data-settings-dynamic-reload="replaceModel">
+							<option value="200">200 words</option>
+							<option value="1000">1000 words</option>
+							<option disabled>more...</option>
 						</select>
 					</div>
 
@@ -86,7 +94,7 @@
 
 					<div>
 						<label for="keyboardLayoutRegion">Keyboard layout language</label>
-						<select id="keyboardLayoutRegion" data-settings-key="input.layoutRegion">
+						<select id="keyboardLayoutRegion" data-settings-key="input.layoutRegion" data-settings-dynamic-reload="replaceModel">
 							<option value="basic">Basic</option>
 							<option value="en-gb">English (United Kingdom)</option>
 							<option value="en-us">English (United States)</option>
@@ -96,7 +104,7 @@
 
 					<div>
 						<label for="keyboardLayout">Keyboard layout variant</label>
-						<select id="keyboardLayout" data-settings-key="input.layoutVariant">
+						<select id="keyboardLayout" data-settings-key="input.layoutVariant" data-settings-dynamic-reload="replaceModel">
 							<option value="qwerty">QWERTY</option>
 							<option value="colemak" disabled>Colemak</option>
 						</select>

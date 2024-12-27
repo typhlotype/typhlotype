@@ -2,9 +2,9 @@ import { SettingsChangeEvent } from "../events/SettingsChangeEvent.js";
 
 export class Settings {
 	language = {
-		interfaceLanguage: "en" as string | undefined,
-		wordSetLanguage: "en" as string | undefined,
-		wordSet: "200" as string | undefined,
+		interfaceLanguage: "en" as string,
+		wordSetLanguage: "en" as string,
+		wordSetVariant: "1000" as string,
 	};
 	input = {
 		layoutRegion: "basic",
