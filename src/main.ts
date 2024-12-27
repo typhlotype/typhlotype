@@ -1,5 +1,5 @@
-import { createApp } from 'vue';
-import App from './App.vue';
+import { createApp } from "vue";
+import App from "./App.vue";
 
 
 
@@ -14,18 +14,17 @@ const controllerPromise = Controller.new()
 
 const documentReady = onDocumentReady();
 
-createApp(App).mount('#app');
-
 Promise.all([controllerPromise, documentReady]).then(() => {
+	createApp(App).mount("#app");
 	controller.initDom();
 });
 
 function onDocumentReady(): Promise<void> {
     return new Promise(resolve => {
-        if (document.readyState !== 'loading') {
+        if (document.readyState !== "loading") {
             resolve();
         } else {
-            document.addEventListener('DOMContentLoaded', () => resolve(), { once: true });
+            document.addEventListener("DOMContentLoaded", () => resolve(), { once: true });
         }
     });
 }
