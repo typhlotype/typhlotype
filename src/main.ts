@@ -15,7 +15,7 @@ const controllerPromise = Controller.new()
 const documentReady = onDocumentReady();
 
 Promise.all([controllerPromise, documentReady]).then(() => {
-	createApp(App).mount("#app");
+	createApp(App).provide("controller", controller).mount("#app");
 	controller.initDom();
 });
 

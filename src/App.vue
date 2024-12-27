@@ -158,14 +158,15 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import HelloWorld from "./components/HelloWorld.vue";
+import { reactive } from 'vue';
 
-@Options({
-	components: {
-		HelloWorld,
+export default {
+	inject: ['controller'],
+	controller: {},
+	data() {
+		return {
+			controller: reactive(this.controller),
+		};
 	},
-})
-
-export default class App extends Vue { }
+}
 </script>
