@@ -1,5 +1,10 @@
 #!/usr/bin/env -S deno run --allow-all
 
+// Flags:
+// --watch: Watch for changes and rebuild.
+// --serve: Build and host a local development server. Implies --watch.
+// --deploy: Deploy the built files.
+
 import * as fs from "jsr:@std/fs";
 import * as cli from "jsr:@std/cli";
 import * as clispinner from "jsr:@std/cli/unstable-spinner";
