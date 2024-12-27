@@ -1,5 +1,5 @@
-import { AssertivePromptEvent } from "../events/textPrompt/assertivePromptEvent.js";
-import { PolitePromptEvent } from "../events/textPrompt/politePromptEvent.js";
+import { AssertivePromptEvent } from "../events/textPrompt/assertivePromptEvent";
+import { PolitePromptEvent } from "../events/textPrompt/politePromptEvent";
 
 export function init() {
 	AssertivePromptEvent.subscribe(assertivePrompt);
@@ -15,7 +15,7 @@ export function assertivePrompt(event: AssertivePromptEvent) {
 	}
 	prompt.appendChild(document.createTextNode(text));
 
-	let promptContainer = document.querySelector("#livePromptAssertive");
+	const promptContainer = document.querySelector("#livePromptAssertive");
 	if (!promptContainer) throw new Error("#livePromptAssertive did not exist");
 
 	if (id) {
@@ -34,7 +34,7 @@ function politePrompt(event: PolitePromptEvent) {
 	}
 	prompt.appendChild(document.createTextNode(text));
 
-	let promptContainer = document.querySelector("#livePromptPolite");
+	const promptContainer = document.querySelector("#livePromptPolite");
 	if (!promptContainer) throw new Error("#livePromptPolite did not exist");
 
 	if (id) {

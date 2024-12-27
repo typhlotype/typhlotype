@@ -1,13 +1,13 @@
-import { charMap, i18n, phoneticSpellingAlphabet } from "./i18nMap.js";
-import { AssertivePromptEvent } from "../events/textPrompt/assertivePromptEvent.js";
-import { StateChangeEvent } from "../events/StateChangeEvent.js";
-import { LetterPromptEvent } from "../events/activityPrompt/letterPromptEvent.js";
-import { RawLetterInputEvent } from "../events/input/rawLetterInputEvent.js";
-import { cancelDelayedPrompt, delayedPrompt } from "./delayedPrompt.js";
-import { settings } from "./settingsModel.js";
-import { LetterInputEvent } from "../events/input/letterInputEvent.js";
-import { KeyboardLayout } from "./keyboardLayout.js";
-import { WordGenerator } from "./wordGenerator.js";
+import { charMap, i18n, phoneticSpellingAlphabet } from "./i18nMap";
+import { AssertivePromptEvent } from "../events/textPrompt/assertivePromptEvent";
+import { StateChangeEvent } from "../events/StateChangeEvent";
+import { LetterPromptEvent } from "../events/activityPrompt/letterPromptEvent";
+import { RawLetterInputEvent } from "../events/input/rawLetterInputEvent";
+import { cancelDelayedPrompt, delayedPrompt } from "./delayedPrompt";
+import { settings } from "./settingsModel";
+import { LetterInputEvent } from "../events/input/letterInputEvent";
+import { KeyboardLayout } from "./keyboardLayout";
+import { WordGenerator } from "./wordGenerator";
 
 /**
  * The Model class is responsible for managing the state and behavior of the
@@ -112,7 +112,7 @@ export class Model {
 			}
 		}
 
-		let keyLocationHint = this.keyboardLayout.fingerLocation(letter);
+		const keyLocationHint = this.keyboardLayout.fingerLocation(letter);
 		if (settings.keyPrompt.locationAssistance && keyLocationHint) {
 			if (keyLocationHint) {
 				promptText += keyLocationHint + ". ";

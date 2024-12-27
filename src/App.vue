@@ -1,26 +1,180 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+	<div id="loader">
+		<progress></progress>
+	</div>
+	<div id="wrapper" hidden>
+		<header>
+			<h1 data-i18n="application.title"></h1>
+			<nav>
+				<ul>
+					<li>
+						<button id="beginBtn" accesskey="1">
+							<div><svg width="24" height="24" viewBox="120 -840 720 720" aria-hidden="true"><use href="static/icons/play_arrow.svg#a"></use></svg></div>
+							<span data-i18n="application.begin"></span>
+						</button>
+					</li>
+					<li>
+						<button id="introductionBtn" accesskey="2" disabled>
+							<div><svg width="24" height="24" viewBox="0 -960 960 960" aria-hidden="true"><use href="static/icons/chart.svg#a"></use></svg></div>
+							<span data-i18n="application.progress"></span>
+						</button>
+					</li>
+					<li>
+						<button id="settingsBtn" accesskey="3">
+							<div><svg width="24" height="24" viewBox="0 -960 960 960" aria-hidden="true"><use href="static/icons/settings.svg#a"></use></svg></div>
+							<span data-i18n="application.openSettings"></span>
+						</button>
+					</li>
+					<li>
+						<a href="https://lauritzt.dk/en/contact/" accesskey="4">
+							<div><svg width="24" height="24" viewBox="0 -960 960 960" aria-hidden="true"><use href="static/icons/feedback.svg#a"></use></svg></div>
+							<span data-i18n="application.giveFeedbackShort;[aria-label]=application.giveFeedback"></span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
+
+		<div id="livePromptAssertive" aria-live="assertive" class="visuallyHidden"></div>
+		<div id="livePromptPolite" aria-live="polite" class="visuallyHidden"></div>
+
+		<section id="practice" hidden data-section-type="main">
+			<p id="wordDisplay"></p>
+
+			<input id="wordInput" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" list="_autocompleteOff" spellcheck="false" aria-label="" class="visuallyHidden">
+		</section>
+
+		<section id="settings" hidden data-section-type="main">
+			<h2 tabindex="-1" data-i18n="settings.heading"></h2>
+			<fieldset>
+				<legend><h3 data-i18n="settings.language.heading"></h3></legend>
+
+				<div>
+					<label for="interfaceLanguage" data-i18n="settings.language.interfaceLanguage"></label>
+					<select id="interfaceLanguage" data-settings-key="language.interfaceLanguage">
+						<option value="en" language="en">English</option>
+						<option value="da" language="da">Dansk</option>
+					</select>
+				</div>
+
+
+				<div>
+					<label for="wordSetLanguage" data-i18n="settings.language.wordSetLanguage"></label>
+					<select id="wordSetLanguage" data-settings-key="language.wordSetLanguage">
+						<option value="en" lang="en">English</option>
+						<option value="en-us" lang="en">English (United States)</option>
+						<option value="da" lang="da">Dansk</option>
+					</select>
+				</div>
+
+				<button data-action-fieldset="apply">Apply language settings</button>
+			</fieldset>
+
+			<fieldset>
+				<legend><h3>Input settings</h3></legend>
+
+				<div>
+					<label for="keyboardLayoutRegion">Keyboard layout language</label>
+					<select id="keyboardLayoutRegion" data-settings-key="input.layoutRegion">
+						<option value="basic">Basic</option>
+						<option value="en-gb">English (United Kingdom)</option>
+						<option value="en-us">English (United States)</option>
+						<option value="da">Danish</option>
+					</select>
+				</div>
+
+				<div>
+					<label for="keyboardLayout">Keyboard layout variant</label>
+					<select id="keyboardLayout" data-settings-key="input.layoutVariant">
+						<option value="qwerty">QWERTY</option>
+						<option value="colemak" disabled>Colemak</option>
+					</select>
+				</div>
+
+				<div>
+					<label for="angleMod">Bottom row finger shift angle</label>
+					<select id="angleMod" data-settings-key="input.angleMod">
+						<option value="straight">Straight (ortholinear)</option>
+						<option value="right" disabled>Right (traditional)</option>
+						<option value="left" disabled>Left (ergonomic)</option>
+					</select>
+				</div>
+
+				<button data-action-fieldset="apply">Apply input settings</button>
+			</fieldset>
+
+			<fieldset>
+				<legend><h3 id="keyPrompt">Prompt message contents</h3></legend>
+
+				<div class="inputLabelPair">
+					<input type="checkbox" id="keyPrompt-actionDescription" name="keyPrompt-actionDescription" aria-describedby="keyPrompt" data-settings-key="keyPrompt.actionDescription">
+					<label for="keyPrompt-actionDescription">Action description (e.g. press)</label>
+				</div>
+
+				<div class="inputLabelPair">
+					<input type="checkbox" id="keyPrompt-letter" name="keyPrompt-letter" aria-describedby="keyPrompt" data-settings-key="keyPrompt.letter">
+					<label for="keyPrompt-letter">Letter</label>
+				</div>
+
+				<div class="inputLabelPair">
+					<input type="checkbox" id="keyPrompt-phoneticSpellingAlphabet" name="keyPrompt-phoneticSpellingAlphabet" aria-describedby="keyPrompt" data-settings-key="keyPrompt.phoneticSpellingAlphabet">
+					<label for="keyPrompt-phoneticSpellingAlphabet">Letter in the phonetic spelling alphabet</label>
+				</div>
+
+				<div class="inputLabelPair">
+					<input type="checkbox" id="keyPrompt-fingerLocation" name="keyPrompt-fingerLocation"  aria-describedby="keyPrompt" data-settings-key="keyPrompt.locationAssistance">
+					<label for="keyPrompt-fingerLocation">Location assistance (which finger to press)</label>
+				</div>
+
+				<button data-action-fieldset="apply">Apply key prompt settings</button>
+			</fieldset>
+
+			<fieldset>
+				<legend><h3>Prompt speech methods</h3></legend>
+
+				<div class="inputLabelPair">
+					<input type="checkbox" id="promptSpeechMethods-live" name="promptSpeechMethods-live" data-settings-key="promptSpeechMethods.live">
+					<label for="promptSpeechMethods-live">Live (recommended for screen readers)</label>
+				</div>
+
+				<div class="inputLabelPair">
+					<input type="checkbox" id="promptSpeechMethods-label" name="promptSpeechMethods-label" data-settings-key="promptSpeechMethods.label">
+					<label for="promptSpeechMethods-label">Label on input field</label>
+				</div>
+
+				<div class="inputLabelPair">
+					<input type="checkbox" id="promptSpeechMethods-speech" name="promptSpeechMethods-speech" data-settings-key="promptSpeechMethods.speech">
+					<label for="promptSpeechMethods-speech">Independent speech synthesis</label>
+				</div>
+
+				<button data-action-fieldset="apply">Apply prompt speech methods settings</button>
+			</fieldset>
+		</section>
+
+		<section id="info" data-section-type="main">
+			<p data-i18n="application.info"></p>
+		</section>
+	</div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+import HelloWorld from './components/HelloWorld.vue';
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+import { Controller } from "./ts/controller/controller";
+
+let controller;
+
+Controller.new()
+	.then(c => { controller = c; })
+	.catch(e => { console.error(e); });
+
+
+@Options({
+	components: {
+		HelloWorld,
+	},
+})
+
+export default class App extends Vue { }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

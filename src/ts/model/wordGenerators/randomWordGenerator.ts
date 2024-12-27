@@ -10,7 +10,7 @@ export class RandomWordGenerator implements WordGenerator {
 
 	getNextWord(): string {
 		while (true) {
-			let word = this.words[Math.floor(Math.random()*this.words.length)].toLowerCase();
+			const word = this.words[Math.floor(Math.random()*this.words.length)].toLowerCase();
 			if (!this.previousWords.includes(word)) {
 				this.previousWords.push(word);
 				return word;

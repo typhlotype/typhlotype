@@ -1,17 +1,17 @@
-import { Model } from "../model/model.js";
-import * as i18nMap from "../model/i18nMap.js";
-import * as dataFetch from "../controller/dataFetch.js";
-import * as settingsController from "../controller/settingsController.js";
-import * as livePrompt from "../ui/livePrompt.js";
-import * as wordDisplay from "../ui/wordDisplay.js";
-import { RawLetterInputEvent } from "../events/input/rawLetterInputEvent.js";
-import { cancelDelayedPrompt } from "../model/delayedPrompt.js";
-import { RandomWordGenerator } from "../model/wordGenerators/randomWordGenerator.js";
-import { StandardKeyboardLayout } from "../model/keyboardLayouts/standardKeyboardLayout.js";
-import { settings } from "../model/settingsModel.js";
-import { applyI18nLabels } from "../ui/applyI18nLabels.js";
-import { SettingsChangeEvent } from "../events/SettingsChangeEvent.js";
-import { showSection } from "../ui/ui.js";
+import { Model } from "../model/model";
+import * as i18nMap from "../model/i18nMap";
+import * as dataFetch from "../controller/dataFetch";
+import * as settingsController from "../controller/settingsController";
+import * as livePrompt from "../ui/livePrompt";
+import * as wordDisplay from "../ui/wordDisplay";
+import { RawLetterInputEvent } from "../events/input/rawLetterInputEvent";
+import { cancelDelayedPrompt } from "../model/delayedPrompt";
+import { RandomWordGenerator } from "../model/wordGenerators/randomWordGenerator";
+import { StandardKeyboardLayout } from "../model/keyboardLayouts/standardKeyboardLayout";
+import { settings } from "../model/settingsModel";
+import { applyI18nLabels } from "../ui/applyI18nLabels";
+import { SettingsChangeEvent } from "../events/SettingsChangeEvent";
+import { showSection } from "../ui/ui";
 
 /**
  * The Controller class is responsible for handling platform-dependant data
@@ -68,7 +68,7 @@ export class Controller {
 	}
 
 	static async new(): Promise<Controller> {
-		let controller = new Controller();
+		const controller = new Controller();
 		await controller.init();
 		SettingsChangeEvent.subscribe((e) => {controller.init(true)});
 		return controller;
@@ -95,7 +95,7 @@ export class Controller {
 			});
 
 			document.querySelector("#wordInput")?.addEventListener("input", function(_e) {
-				let e = _e as InputEvent;
+				const e = _e as InputEvent;
 				cancelDelayedPrompt("wordPromptHint");
 
 				if (e.data == null) {

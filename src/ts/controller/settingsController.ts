@@ -1,5 +1,5 @@
-import { Settings, applySettings, settings } from "../model/settingsModel.js";
-import { SettingsChangeEvent } from "../events/SettingsChangeEvent.js";
+import { Settings, applySettings, settings } from "../model/settingsModel";
+import { SettingsChangeEvent } from "../events/SettingsChangeEvent";
 
 
 export async function init() {
@@ -51,7 +51,7 @@ function updateSettingsFromElement(element: Element, newSettings: Partial<Settin
 	let parent: any = newSettings;
 
 	// Resolve the key
-	let keyElements = keyPath.split('.');
+	const keyElements = keyPath.split('.');
 
 	for (const keyElement of keyElements.slice(0, keyElements.length - 1)) {
 		if (!parent[keyElement]) {
@@ -77,7 +77,7 @@ export function updatePageFromSettings() {
 		}
 
 		// Resolve the key
-		let keyElements = keyPath.split('.');
+		const keyElements = keyPath.split('.');
 		let setting: any = settings;
 
 		for (const keyElement of keyElements) {

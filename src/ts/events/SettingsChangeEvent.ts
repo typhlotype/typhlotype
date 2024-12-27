@@ -1,4 +1,4 @@
-import {Inner} from "./inner.js";
+import {Inner} from "./inner";
 
 export class SettingsChangeEvent {
 	static inner = new Inner<SettingsChangeEvent>();

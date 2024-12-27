@@ -1,4 +1,4 @@
-import { i18n } from "../model/i18nMap.js";
+import { i18n } from "../model/i18nMap";
 
 /**
  * Applies internationalization labels to the specified HTML container element
@@ -29,7 +29,7 @@ export function applyI18nLabels(containerElement?: HTMLElement | Document | unde
 		}
 
 		for (const key of attribute.split(';')) {
-			let attrKeyPair = key.match(/\[([^\]]+)\]=(.+)/);
+			const attrKeyPair = key.match(/\[([^\]]+)\]=(.+)/);
 
 			if (attrKeyPair === null) {
 				element.innerHTML = i18n(key);

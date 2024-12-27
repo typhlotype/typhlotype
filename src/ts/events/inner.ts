@@ -1,5 +1,5 @@
-import { EventUnsubscribeToken } from './event.js';
-export { EventUnsubscribeToken } from './event.js';
+import { EventUnsubscribeToken } from './event';
+export type { EventUnsubscribeToken } from './event';
 
 
 export class Inner<T> {

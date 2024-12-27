@@ -1,4 +1,4 @@
-import { SettingsChangeEvent } from "../events/SettingsChangeEvent.js";
+import { SettingsChangeEvent } from "../events/SettingsChangeEvent";
 
 export class Settings {
 	language = {
@@ -32,7 +32,7 @@ export class Settings {
 	}
 }
 
-export let settings = new Settings();
+export const settings = new Settings();
 
 export function applySettings(newSettings: Partial<Settings>, event=true) {
 	mergeObjects(settings, newSettings);

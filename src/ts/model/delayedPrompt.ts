@@ -1,11 +1,11 @@
-import { DelayedHintFireEvent } from "../events/activityPrompt/delayedHintFireEvent.js";
-import { PolitePromptEvent } from "../events/textPrompt/politePromptEvent.js";
+import { DelayedHintFireEvent } from "../events/activityPrompt/delayedHintFireEvent";
+import { PolitePromptEvent } from "../events/textPrompt/politePromptEvent";
 
 const delayedPromptHandles: Record<string, any> = {};
 
 
 export function delayedPrompt(text: string, id?: string) {
-	let handle = setTimeout(delayedPromptHandler, 2000, text, id);
+	const handle = setTimeout(delayedPromptHandler, 2000, text, id);
 	if (id) {
 		if (delayedPromptHandles[id] !== undefined) {
 			clearTimeout(delayedPromptHandles[id]);

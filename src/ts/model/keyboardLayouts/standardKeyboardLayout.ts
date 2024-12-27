@@ -1,5 +1,5 @@
-import { i18n } from "../i18nMap.js";
-import { KeyboardLayout } from "../keyboardLayout.js";
+import { i18n } from "../i18nMap";
+import { KeyboardLayout } from "../keyboardLayout";
 
 
 /**
@@ -33,7 +33,7 @@ export class StandardKeyboardLayout implements KeyboardLayout {
 	}
 
 	fingerLocation(letter: string): string | undefined {
-		let loc = this.searchForLetter(letter);
+		const loc = this.searchForLetter(letter);
 
 		if (!loc) {
 			console.warn("Could not locate letter '" + letter + "' in keyboard layout. Skipping location hint.");

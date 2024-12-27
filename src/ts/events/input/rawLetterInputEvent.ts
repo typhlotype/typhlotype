@@ -1,4 +1,4 @@
-import { Inner, EventUnsubscribeToken } from "../inner.js";
+import { Inner, EventUnsubscribeToken } from "../inner";
 
 export class RawLetterInputEvent {
 	letter: string;

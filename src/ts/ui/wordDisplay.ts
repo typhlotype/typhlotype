@@ -1,4 +1,4 @@
-import { LetterPromptEvent } from "../events/activityPrompt/letterPromptEvent.js";
+import { LetterPromptEvent } from "../events/activityPrompt/letterPromptEvent";
 
 export function init() {
 	LetterPromptEvent.subscribe(updateWordDisplay);
