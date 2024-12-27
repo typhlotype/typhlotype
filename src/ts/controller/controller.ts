@@ -56,13 +56,8 @@ export class Controller {
 			wordDisplay.init();
 		}
 
-		const controller = this;
-
-		if (document.readyState === "loading") {
-			document.addEventListener("DOMContentLoaded", async function() {
-				controller.initDom(reinit);
-			});
-		} else {
+		if (reinit) {
+			const controller = this;
 			controller.initDom(reinit);
 		}
 	}
@@ -74,7 +69,7 @@ export class Controller {
 		return controller;
 	}
 
-	private initDom(reinit: boolean) {
+	initDom(reinit: boolean = false) {
 		settingsController.updatePageFromSettings();
 		applyI18nLabels();
 

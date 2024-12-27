@@ -158,18 +158,8 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import HelloWorld from './components/HelloWorld.vue';
-
-import { Controller } from "./ts/controller/controller";
-
-// eslint-disable-next-line no-unused-vars
-let controller;
-
-Controller.new()
-	.then(c => { controller = c; })
-	.catch(e => { console.error(e); });
-
+import { Options, Vue } from "vue-class-component";
+import HelloWorld from "./components/HelloWorld.vue";
 
 @Options({
 	components: {
