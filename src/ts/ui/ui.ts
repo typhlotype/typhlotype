@@ -1,7 +1,7 @@
 export function showSection(selectors: string) {
 	const element = document.querySelector(selectors);
 	if (!element) {
-		throw new Error(`Element with selector \"${selectors}\" not found`);
+		throw new Error(`Element with selector "${selectors}" not found`);
 	}
 
 	// Hide all other elements

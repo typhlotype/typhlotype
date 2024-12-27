@@ -9,6 +9,7 @@ export class RandomWordGenerator implements WordGenerator {
 	}
 
 	getNextWord(): string {
+		// eslint-disable-next-line no-constant-condition
 		while (true) {
 			const word = this.words[Math.floor(Math.random()*this.words.length)].toLowerCase();
 			if (!this.previousWords.includes(word)) {

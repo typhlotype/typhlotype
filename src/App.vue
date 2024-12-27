@@ -163,6 +163,7 @@ import HelloWorld from './components/HelloWorld.vue';
 
 import { Controller } from "./ts/controller/controller";
 
+// eslint-disable-next-line no-unused-vars
 let controller;
 
 Controller.new()
