@@ -106,7 +106,7 @@
 
 <script lang="ts">
 import { reactive } from "vue";
-import { settings as settingsGlobal } from "../model/settingsModel";
+import { settings as settingsGlobal, applySettings, Settings } from "../model/settingsModel";
 import { updateSettingsFromPage } from "../controller/settingsController";
 
 export default {
@@ -117,6 +117,14 @@ export default {
 	},
 	methods: {
 		updateSettingsFromPage,
-	}
+	},
+	watch: {
+		settings: {
+			handler(newValue: Settings) {
+				applySettings(newValue);
+			},
+			deep: true,
+		},
+	},
 }
 </script>
