@@ -33,7 +33,8 @@
 		"language": {
 			"heading": "Sprogindstillinger",
 			"interfaceLanguage": "Grænsefladesprog",
-			"wordSetLanguage": "Skrivesprog"
+			"wordSetLanguage": "Øvesprog",
+			"wordSetVariant": "Øveordliste"
 		}
 	},
 	"charMap": {

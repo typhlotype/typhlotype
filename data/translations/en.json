@@ -33,7 +33,8 @@
 		"language": {
 			"heading": "Language settings",
 			"interfaceLanguage": "Interface language",
-			"wordSetLanguage": "Wordset language"
+			"wordSetLanguage": "Practice language",
+			"wordSetVariant": "Practice word set"
 		}
 	},
 	"charMap": {
