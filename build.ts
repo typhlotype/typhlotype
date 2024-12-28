@@ -6,37 +6,36 @@
 // --deploy: Deploy the built files.
 
 import * as fs from "jsr:@std/fs";
+import * as path from "jsr:@std/path";
 import * as cli from "jsr:@std/cli";
 import * as clispinner from "jsr:@std/cli/unstable-spinner";
 import * as http from "jsr:@std/http";
 
+const targetDir = "target";
+
 let buildLock = false;
 const args = cli.parseArgs(Deno.args, { "boolean": ["watch", "serve", "deploy"] });
 
-async function handleFiles() {
+async function build() {
 	buildLock = true;
 	const spinner = new clispinner.Spinner();
 	spinner.message = "Building...";
 	spinner.start();
 
-	fs.emptyDir("target");
-
-	const tsc = new Deno.Command("tsc", {args: ["--outDir", "target/js", "--pretty", "true"], stdout: "inherit", stderr: "inherit"});
-	const tscResult = await tsc.output();
-	if (!tscResult.success) {
+	try {
+		fs.emptyDir(targetDir);
+		spinner.message = "Compiling TypeScript...";
+		await tscBuild();
+		spinner.message = "Copying static files...";
+		await copyFiles();
+		spinner.message = "Generating resource indices...";
+		await generateResourceIndices();
+	} catch (e) {
 		spinner.stop();
 		buildLock = false;
-		console.error("TypeScript error! See above.");
+		console.error(`Build error: ${e instanceof Error ? e.message : typeof e}. See above for log information.`);
 		return false;
 	}
-
-	await fs.copy("data", "target/data");
-	await fs.copy("src/index.html", "target/index.html");
-	await fs.copy("src/main.css", "target/main.css");
-	await fs.copy("static", "target/static");
-
-	await Deno.mkdir("target/src");
-	await fs.copy("src/ts", "target/src/ts");
 
 	spinner.stop();
 	console.log("Built successfully");
@@ -45,22 +44,55 @@ async function handleFiles() {
 	return true;
 }
 
+async function tscBuild() {
+	const tsc = new Deno.Command("tsc", {args: ["--outDir", path.join(targetDir, "js"), "--pretty", "true"], stdout: "inherit", stderr: "inherit"});
+	const tscResult = await tsc.output();
+	if (!tscResult.success) {
+		throw new Error("TypeScript compilation failed");
+	}
+}
+
+async function copyFiles() {
+	await fs.copy(path.join("data"), path.join(targetDir, "data"));
+	await fs.copy(path.join("src", "index.html"), path.join(targetDir, "index.html"));
+	await fs.copy(path.join("src", "main.css"), path.join(targetDir, "main.css"));
+	await fs.copy(path.join("static"), path.join(targetDir, "static"));
+
+	await Deno.mkdir(path.join(targetDir, "src"));
+	await fs.copy(path.join("src", "ts"), path.join(targetDir, "src", "ts"));
+}
+
+async function generateResourceIndices() {
+	const wordSetPath = path.join("data", "words");
+	const wordSets = [];
+	for await (const file of fs.walk(wordSetPath)) {
+		if (file.isFile) {
+			const wordSet = JSON.parse(await Deno.readTextFile(file.path));
+			if (wordSet.id + ".json" != path.relative(wordSetPath, file.path).split(path.SEPARATOR).join('/')) {
+				console.log("Word set metadata ID is " + wordSet.id + ", but file name is " + file.path);
+				throw new Error(`Word set id mismatch in ${file.path}`);
+			}
+			wordSets.push({id: wordSet.id, language: wordSet.language, name: wordSet.name});
+		}
+	}
+	await Deno.writeTextFile(path.join(targetDir, "data", "words", "index.json"), JSON.stringify(wordSets));
+}
+
 async function watch() {
 	const watcher = Deno.watchFs(["src", "data", "static"]);
-
 
 	for await (const event of watcher) {
 		if (event.kind === "access") {
 			continue;
 		}
 		if (!buildLock) {
-			handleFiles();
+			await build();
 		}
 	}
 
 }
 
-const result = await handleFiles();
+const result = await build();
 
 if (args.serve) {
 	Deno.serve((req) => {
