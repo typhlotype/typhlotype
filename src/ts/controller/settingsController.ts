@@ -5,13 +5,6 @@ import { SettingsChangeEvent } from "../events/SettingsChangeEvent";
 export async function init() {
 	SettingsChangeEvent.subscribe(saveNewSettings);
 
-	for (const element of document.querySelectorAll("[data-action-fieldset=\"apply\"]") as unknown as [Element]) {
-		element.addEventListener("click", () => {
-			updateSettingsFromPage();
-		});
-	}
-
-
 	try {
 		const savedSettingsString = localStorage.getItem("settings");
 		if (!savedSettingsString) {
@@ -31,7 +24,7 @@ function saveNewSettings() {
 	localStorage.setItem("settings", JSON.stringify(settings));
 }
 
-function updateSettingsFromPage() {
+export function updateSettingsFromPage() {
 	const newSettings: Partial<Settings> = {};
 
 	for (const element of document.querySelectorAll("[data-settings-key]") as unknown as [Element]) {
