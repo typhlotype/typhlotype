@@ -1,11 +1,14 @@
 import { WordGenerator } from "../wordGenerator.js";
+import { WordSet } from "./wordSet.js";
 
 export class RandomWordGenerator implements WordGenerator {
 	words: string[];
+	wordSetId: string;
 	previousWords: RepetitionMemory<string> = new RepetitionMemory(20);
 
-	constructor(words: string[]) {
-		this.words = words;
+	constructor(words: WordSet) {
+		this.words = words.words;
+		this.wordSetId = words.id;
 	}
 
 	getNextWord(): string {
