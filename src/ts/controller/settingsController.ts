@@ -1,6 +1,11 @@
+/**
+ * This module is responsible for handling the settings page. It reads the
+ * settings from the page and updates the settings model accordingly. It also
+ * saves the settings to local storage and reads them from there on startup.
+ */
+
 import { Settings, applySettings, settings } from "../model/settingsModel";
 import { SettingsChangeEvent } from "../events/SettingsChangeEvent";
-
 
 export async function init() {
 	SettingsChangeEvent.subscribe(saveNewSettings);
@@ -18,7 +23,6 @@ export async function init() {
 		console.error(e);
 	}
 }
-
 
 function saveNewSettings() {
 	localStorage.setItem("settings", JSON.stringify(settings));
