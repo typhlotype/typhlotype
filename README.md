@@ -1,6 +1,16 @@
-# typhlotype
+## Similar tools
 
-## Project setup
+### Designed with accessibility as a primary focus
+- [Doorway Text Type](https://www.doorwayonline.org.uk/typing/text-type/): Free of charge. Web. English and Welsh.
+- [Typer Online](https://typer.aphtech.org/): Free of charge. Web. English only.
+
+### Not designed with accessibility as a primary focus
+- [Keybr](https://www.keybr.com/): Free of charge. Web.
+- [Monkeytype](https://monkeytype.com/): Free of charge. Web.
+
+## Development environment
+
+### Project setup
 ```
 npm install
 ```
@@ -14,11 +24,3 @@ npm run serve
 ```
 npm run build
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
