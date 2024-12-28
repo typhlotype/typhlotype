@@ -112,6 +112,8 @@ export class Controller {
 			});
 		}
 
+		settingsController.initDom(reinit);
+
 		document.querySelector("#loader")?.setAttribute("hidden", "");
 		document.querySelector("#wrapper")?.removeAttribute("hidden");
 	}

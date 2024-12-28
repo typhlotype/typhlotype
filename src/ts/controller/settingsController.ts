@@ -10,12 +10,6 @@ import { SettingsChangeEvent } from "../events/SettingsChangeEvent.js";
 export async function init() {
 	SettingsChangeEvent.subscribe(saveNewSettings);
 
-	for (const element of document.querySelectorAll("[data-action-fieldset=\"apply\"]") as unknown as [Element]) {
-		element.addEventListener("click", () => {
-			updateSettingsFromPage();
-		});
-	}
-
 	try {
 		const savedSettingsString = localStorage.getItem("settings");
 		if (!savedSettingsString) {
@@ -27,6 +21,16 @@ export async function init() {
 		applySettings(savedSettings, false);
 	} catch (e) {
 		console.error(e);
+	}
+}
+
+export async function initDom(reinit: boolean) {
+	if (!reinit) {
+		for (const element of document.querySelectorAll("[data-action-fieldset=\"apply\"]") as unknown as [Element]) {
+			element.addEventListener("click", () => {
+				updateSettingsFromPage();
+			});
+		}
 	}
 }
 
