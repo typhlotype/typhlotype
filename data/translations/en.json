@@ -1,4 +1,6 @@
 {
+	"id": "en",
+	"name": "English",
 	"prompt": {
 		"press": "press",
 		"type": "type",

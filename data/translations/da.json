@@ -1,4 +1,6 @@
 {
+	"id": "da",
+	"name": "Dansk",
 	"prompt": {
 		"press": "tryk",
 		"type": "skriv",
