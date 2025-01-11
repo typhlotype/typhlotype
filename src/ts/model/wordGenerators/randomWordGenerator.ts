@@ -13,19 +13,24 @@ export class RandomWordGenerator implements WordGenerator {
 
 	getNextWord(): string {
 		while (true) {
-			let word = this.words[Math.floor(Math.random()*this.words.length)].toLowerCase();
+			const word = this.getRandomWord();
 			if (!this.previousWords.includes(word)) {
 				this.previousWords.push(word);
 				return word;
 			}
 		}
 	}
+
+	getRandomWord(): string {
+		return this.words[Math.floor(Math.random()*this.words.length)].toLowerCase();
+	}
 }
 
 class RepetitionMemory<T> {
 	index: number = -1;
-	size: number;
 	arr: T[] = [];
+	readonly size: number;
+
 	constructor(size: number) {
 		this.size = size;
 	}
@@ -35,8 +40,8 @@ class RepetitionMemory<T> {
 	}
 
 	push(element: T) {
-		this.index += 1;
-		this.index %= this.size;
+		this.index += (this.index + 1) % this.size;
+
 		if (this.arr.length < this.size) {
 			this.arr.push(element);
 		} else {
