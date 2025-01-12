@@ -75,6 +75,8 @@ async function generateResourceIndices() {
 			wordSets.push({id: wordSet.id, language: wordSet.language, name: wordSet.name});
 		}
 	}
+	const collator = new Intl.Collator("en", { numeric: true });
+	wordSets.sort((a, b) => collator.compare(a.name, b.name));
 	await Deno.writeTextFile(path.join(targetDir, "data", "words", "index.json"), JSON.stringify(wordSets));
 }
 

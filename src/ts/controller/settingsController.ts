@@ -7,6 +7,8 @@
 import { Settings, applySettings, settings } from "../model/settingsModel.js";
 import { SettingsChangeEvent } from "../events/SettingsChangeEvent.js";
 
+let WORDS_INDEX: any;
+
 export async function init() {
 	SettingsChangeEvent.subscribe(saveNewSettings);
 
@@ -32,6 +34,10 @@ export async function initDom(reinit: boolean) {
 			});
 		}
 	}
+}
+
+export function updateIndicies(wordsIndex: any) {
+	WORDS_INDEX = wordsIndex;
 }
 
 function saveNewSettings() {
@@ -77,6 +83,12 @@ function updateSettingsFromElement(element: Element, newSettings: Partial<Settin
 }
 
 export function updatePageFromSettings() {
+	updateWordSetOptions();
+
+	updatePageValues()
+}
+
+function updatePageValues() {
 	for (const element of document.querySelectorAll("[data-settings-key]") as unknown as [Element]) {
 		const keyPath = element.getAttribute("data-settings-key");
 		if (!keyPath) {
@@ -98,3 +110,29 @@ export function updatePageFromSettings() {
 		}
 	}
 }
+
+function updateWordSetOptions() {
+	let wordSetLanguage = document.querySelector("[data-settings-key=\"language.wordSetVariant\"]") as HTMLSelectElement;
+
+	wordSetLanguage.clear();
+
+	for (const wordset of WORDS_INDEX) {
+		if (wordset.language !== settings.language.wordSetLanguage) {
+			continue;
+		}
+
+		wordSetLanguage.add(new Option(wordset.name, wordset.id));
+	}
+}
+
+declare global {
+	interface HTMLSelectElement {
+		clear(): void;
+	}
+}
+
+HTMLSelectElement.prototype.clear = function() {
+	while (this.options.length > 0) {
+		this.remove(0);
+	}
+};
