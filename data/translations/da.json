@@ -37,6 +37,27 @@
 			"interfaceLanguage": "Grænsefladesprog",
 			"wordSetLanguage": "Øvesprog",
 			"wordSetVariant": "Øveordliste"
+		},
+		"input": {
+			"heading": "Indtastningsmetode",
+			"keyboardLayoutRegion": "Tastaturlayoutsprog",
+			"keyboardLayoutVariant": "Tastaturlayoutvariant",
+			"angleMod": "Bundrækkefingerforskydning",
+			"angleModLeft": "Venstre (ergonomisk)",
+			"angleModRight": "Højre (traditionel)",
+			"angleModStraight": "Lige (ortolineær)"
+		},
+		"keyPrompt": {
+			"heading": "Tastebeskedens indhold",
+			"actionDescription": "Handlingsbeskrivelse (f.eks. \"tryk\")",
+			"letter": "Bogstav",
+			"phoneticSpellingAlphabet": "Bogstav i det fonetiske alfabet",
+			"locationAssistance": "Lokationsvejledning (hvilken finger der skal trykkes med)"
+		},
+		"promptSpeechMethods": {
+			"heading": "Tastebeskedens talemetode",
+			"live": "ARIA Live (anbefalet til skærmlæsere)",
+			"speech": "Uafhængig talesyntese"
 		}
 	},
 	"charMap": {

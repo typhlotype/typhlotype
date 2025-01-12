@@ -37,6 +37,27 @@
 			"interfaceLanguage": "Interface language",
 			"wordSetLanguage": "Practice language",
 			"wordSetVariant": "Practice word set"
+		},
+		"input": {
+			"heading": "Input settings",
+			"keyboardLayoutRegion": "Keyboard layout language",
+			"keyboardLayoutVariant": "Keyboard layout variant",
+			"angleMod": "Bottom row finger shift angle",
+			"angleModLeft": "Left (ergonomic)",
+			"angleModRight": "Right (traditional)",
+			"angleModStraight": "Straight (ortholinear)"
+		},
+		"keyPrompt": {
+			"heading": "Prompt message contents",
+			"actionDescription": "Action description (e.g. press)",
+			"letter": "Letter",
+			"phoneticSpellingAlphabet": "Letter in the phonetic spelling alphabet",
+			"locationAssistance": "Location assistance (which finger to press)"
+		},
+		"promptSpeechMethods": {
+			"heading": "Prompt speech methods",
+			"live": "ARIA Live (recommended for screen readers)",
+			"speech": "Independent speech synthesis"
 		}
 	},
 	"charMap": {

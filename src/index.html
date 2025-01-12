@@ -62,7 +62,7 @@
 
 					<div>
 						<label for="interfaceLanguage" data-i18n="settings.language.interfaceLanguage"></label>
-						<select id="interfaceLanguage" data-settings-key="language.interfaceLanguage" data-settings-dynamic-reload="instant">
+						<select id="interfaceLanguage" data-settings-key="language.interfaceLanguage" data-settings-dynamic-reload="immediate">
 							<option value="en" language="en">English</option>
 							<option value="da" language="da">Dansk</option>
 						</select>
@@ -70,7 +70,7 @@
 
 					<div>
 						<label for="wordSetLanguage" data-i18n="settings.language.wordSetLanguage"></label>
-						<select id="wordSetLanguage" data-settings-key="language.wordSetLanguage" data-settings-dynamic-reload="instant">
+						<select id="wordSetLanguage" data-settings-key="language.wordSetLanguage" data-settings-dynamic-reload="immediate">
 							<option value="en" lang="en">English</option>
 							<option value="en-us" lang="en-us">English (United States)</option>
 							<option value="da" lang="da">Dansk</option>
@@ -79,7 +79,7 @@
 
 					<div>
 						<label for="wordSetVariant" data-i18n="settings.language.wordSetVariant"></label>
-						<select id="wordSetVariant" data-settings-key="language.wordSetVariant" data-settings-dynamic-reload="replaceModel">
+						<select id="wordSetVariant" data-settings-key="language.wordSetVariant" data-settings-dynamic-reload="model">
 							<option value="200">200 words</option>
 							<option value="1000">1000 words</option>
 							<option disabled>more...</option>
@@ -90,10 +90,10 @@
 				</fieldset>
 
 				<fieldset>
-					<legend><h3>Input settings</h3></legend>
+					<legend><h3 data-i18n="settings.input.heading"></h3></legend>
 
 					<div>
-						<label for="keyboardLayoutRegion">Keyboard layout language</label>
+						<label for="keyboardLayoutRegion"  data-i18n="settings.input.keyboardLayoutRegion"></label>
 						<select id="keyboardLayoutRegion" data-settings-key="input.layoutRegion" data-settings-dynamic-reload="replaceModel">
 							<option value="basic">Basic</option>
 							<option value="en-gb">English (United Kingdom)</option>
@@ -103,7 +103,7 @@
 					</div>
 
 					<div>
-						<label for="keyboardLayout">Keyboard layout variant</label>
+						<label for="keyboardLayout" data-i18n="settings.input.keyboardLayoutVariant"></label>
 						<select id="keyboardLayout" data-settings-key="input.layoutVariant" data-settings-dynamic-reload="replaceModel">
 							<option value="qwerty">QWERTY</option>
 							<option value="colemak" disabled>Colemak</option>
@@ -111,11 +111,11 @@
 					</div>
 
 					<div>
-						<label for="angleMod">Bottom row finger shift angle</label>
+						<label for="angleMod" data-i18n="settings.input.angleMod"></label>
 						<select id="angleMod" data-settings-key="input.angleMod">
-							<option value="straight">Straight (ortholinear)</option>
-							<option value="right" disabled>Right (traditional)</option>
-							<option value="left" disabled>Left (ergonomic)</option>
+							<option value="straight" data-i18n="settings.input.angleModStraight"></option>
+							<option value="right" data-i18n="settings.input.angleModRight" disabled>Right (traditional)</option>
+							<option value="left" data-i18n="settings.input.angleModLeft" disabled>Left (ergonomic)</option>
 						</select>
 					</div>
 
@@ -123,47 +123,42 @@
 				</fieldset>
 
 				<fieldset>
-					<legend><h3 id="keyPrompt">Prompt message contents</h3></legend>
+					<legend><h3 id="keyPrompt" data-i18n="settings.keyPrompt.heading"></h3></legend>
 
 					<div class="inputLabelPair">
 						<input type="checkbox" id="keyPrompt-actionDescription" name="keyPrompt-actionDescription" aria-describedby="keyPrompt" data-settings-key="keyPrompt.actionDescription">
-						<label for="keyPrompt-actionDescription">Action description (e.g. press)</label>
+						<label for="keyPrompt-actionDescription" data-i18n="settings.keyPrompt.actionDescription"></label>
 					</div>
 
 					<div class="inputLabelPair">
 						<input type="checkbox" id="keyPrompt-letter" name="keyPrompt-letter" aria-describedby="keyPrompt" data-settings-key="keyPrompt.letter">
-						<label for="keyPrompt-letter">Letter</label>
+						<label for="keyPrompt-letter" data-i18n="settings.keyPrompt.letter"></label>
 					</div>
 
 					<div class="inputLabelPair">
 						<input type="checkbox" id="keyPrompt-phoneticSpellingAlphabet" name="keyPrompt-phoneticSpellingAlphabet" aria-describedby="keyPrompt" data-settings-key="keyPrompt.phoneticSpellingAlphabet">
-						<label for="keyPrompt-phoneticSpellingAlphabet">Letter in the phonetic spelling alphabet</label>
+						<label for="keyPrompt-phoneticSpellingAlphabet" data-i18n="settings.keyPrompt.phoneticSpellingAlphabet"></label>
 					</div>
 
 					<div class="inputLabelPair">
 						<input type="checkbox" id="keyPrompt-fingerLocation" name="keyPrompt-fingerLocation"  aria-describedby="keyPrompt" data-settings-key="keyPrompt.locationAssistance">
-						<label for="keyPrompt-fingerLocation">Location assistance (which finger to press)</label>
+						<label for="keyPrompt-fingerLocation" data-i18n="settings.keyPrompt.locationAssistance"></label>
 					</div>
 
 					<button data-action-fieldset="apply">Apply key prompt settings</button>
 				</fieldset>
 
 				<fieldset>
-					<legend><h3>Prompt speech methods</h3></legend>
+					<legend><h3 data-i18n="settings.promptSpeechMethods.heading"></h3></legend>
 
 					<div class="inputLabelPair">
-						<input type="checkbox" id="promptSpeechMethods-live" name="promptSpeechMethods-live" data-settings-key="promptSpeechMethods.live">
-						<label for="promptSpeechMethods-live">Live (recommended for screen readers)</label>
-					</div>
-
-					<div class="inputLabelPair">
-						<input type="checkbox" id="promptSpeechMethods-label" name="promptSpeechMethods-label" data-settings-key="promptSpeechMethods.label">
-						<label for="promptSpeechMethods-label">Label on input field</label>
+						<input type="checkbox" id="promptSpeechMethods-live" name="promptSpeechMethods-live" data-settings-key="promptSpeechMethods.live" disabled>
+						<label for="promptSpeechMethods-live" data-i18n="settings.promptSpeechMethods.live"></label>
 					</div>
 
 					<div class="inputLabelPair">
 						<input type="checkbox" id="promptSpeechMethods-speech" name="promptSpeechMethods-speech" data-settings-key="promptSpeechMethods.speech">
-						<label for="promptSpeechMethods-speech">Independent speech synthesis</label>
+						<label for="promptSpeechMethods-speech" data-i18n="settings.promptSpeechMethods.speech"></label>
 					</div>
 
 					<button data-action-fieldset="apply">Apply prompt speech methods settings</button>
