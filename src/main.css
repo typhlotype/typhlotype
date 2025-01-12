@@ -105,6 +105,7 @@ p {
 #wordDisplay {
 	font-size: 8em;
 	position: relative;
+	transition: left 50ms ease;
 }
 
 #wordDisplay, #wordDisplay > * {
