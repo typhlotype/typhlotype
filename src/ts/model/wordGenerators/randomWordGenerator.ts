@@ -4,11 +4,12 @@ import { WordSet } from "./wordSet.js";
 export class RandomWordGenerator implements WordGenerator {
 	words: string[];
 	wordSetId: string;
-	previousWords: RepetitionMemory<string> = new RepetitionMemory(20);
+	previousWords: RepetitionMemory<string>;
 
 	constructor(words: WordSet) {
 		this.words = words.words;
 		this.wordSetId = words.id;
+		this.previousWords = new RepetitionMemory(Math.floor(this.words.length / 10));
 	}
 
 	getNextWord(): string {
