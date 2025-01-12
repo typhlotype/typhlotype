@@ -38,7 +38,7 @@ export class Controller {
 
 		// Load words and i18n data
 		const [words, wordsIndex, translation, keyboardLayoutSpec] = await Promise.all([
-			dataFetch.get(`words/${settings.language.wordSetVariant}.json`),
+			dataFetch.get(`words/${settings.language.wordSetLanguage}/${settings.language.wordSetVariant}.json`),
 			dataFetch.get(`words/index.json`),
 			dataFetch.get(`translations/${settings.language.interfaceLanguage}.json`),
 			dataFetch.get(`keyboardLayouts/${settings.input.layoutRegion}/${settings.input.layoutVariant}.json`),

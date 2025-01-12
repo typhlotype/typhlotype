@@ -121,7 +121,7 @@ function updateWordSetOptions() {
 			continue;
 		}
 
-		wordSetLanguage.add(new Option(wordset.name, wordset.id));
+		wordSetLanguage.add(new Option(wordset.name, wordset.id.split("/")[1]));
 	}
 }
 
