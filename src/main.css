@@ -95,8 +95,20 @@ p {
 	margin: 0.75rem 0;
 }
 
+#wordDisplayContainer {
+	position: absolute;
+	left: 0;
+	right: 0;
+	overflow: hidden;
+}
+
 #wordDisplay {
-	font-size: 6em;
+	font-size: 8em;
+	position: relative;
+}
+
+#wordDisplay, #wordDisplay > * {
+	word-wrap: normal;
 }
 
 #wordDisplay span.typed {
