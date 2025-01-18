@@ -14,6 +14,7 @@ import * as http from "jsr:@std/http";
 const targetDir = "target";
 
 let buildLock = false;
+let modifiedAfterBuild = false;
 const args = cli.parseArgs(Deno.args, { "boolean": ["watch", "serve", "deploy"] });
 
 async function build() {
@@ -39,6 +40,12 @@ async function build() {
 
 	spinner.stop();
 	console.log("Built successfully");
+
+	if (modifiedAfterBuild) {
+		build();
+		modifiedAfterBuild = false;
+	}
+
 	buildLock = false;
 
 	return true;
@@ -88,7 +95,9 @@ async function watch() {
 			continue;
 		}
 		if (!buildLock) {
-			await build();
+			build();
+		} else {
+			modifiedAfterBuild = true;
 		}
 	}
 
