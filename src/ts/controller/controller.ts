@@ -2,16 +2,16 @@ import { Model } from "../model/model.js";
 import * as i18nMap from "../model/i18nMap.js";
 import * as dataFetch from "../controller/dataFetch.js";
 import * as settingsController from "../controller/settingsController.js";
-import * as livePrompt from "../ui/livePrompt.js";
-import * as wordDisplay from "../ui/wordDisplay.js";
+import * as livePrompt from "../presentation/livePrompt.js";
+import * as wordDisplay from "../presentation/wordDisplay.js";
 import { RawLetterInputEvent } from "../events/input/rawLetterInputEvent.js";
 import { cancelDelayedPrompt } from "../model/delayedPrompt.js";
 import { RandomWordGenerator } from "../model/wordGenerators/randomWordGenerator.js";
 import { StandardKeyboardLayout } from "../model/keyboardLayouts/standardKeyboardLayout.js";
 import { settings } from "../model/settingsModel.js";
-import { applyI18nLabels } from "../ui/applyI18nLabels.js";
+import { applyI18nLabels } from "../presentation/applyI18nLabels.js";
 import { SettingsChangeEvent } from "../events/SettingsChangeEvent.js";
-import { showSection } from "../ui/ui.js";
+import { showSection } from "../presentation/presentation.js";
 
 /**
  * The Controller class is responsible for handling platform-dependant data
