@@ -99,11 +99,17 @@ export class Controller {
 
 			document.querySelector("#wordInput")?.addEventListener("input", function(_e) {
 				let e = _e as InputEvent;
+
+				// Cancel the delayed hint for the previous letter, since the
+				// user is now typing
 				cancelDelayedPrompt("wordPromptHint");
 
-				if (e.data == null) {
-					// do nothing
-				} else {
+				// Prevent the letter actually being entered into the input box,
+				// since that may cause a screen reader to read out the word,
+				// including potential incorrect characters.
+				e.preventDefault();
+
+				if (e.inputType == "insertText" && e.data != null) {
 					for (const letter of e.data) {
 						new RawLetterInputEvent(letter).send();
 					}
