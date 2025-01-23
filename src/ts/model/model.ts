@@ -119,9 +119,11 @@ export class Model {
 			}
 		}
 
+		// Send the prompt to the presentation layer
 		new AssertivePromptEvent(promptText, "wordPrompt").send();
 
-		if (keyLocationHint) {
+		// Send the location hint as a delayed prompt
+		if (keyLocationHint && settings.keyPrompt.locationAssistance) {
 			delayedPrompt(keyLocationHint + ". ",  "wordPromptHint");
 		}
 	}

@@ -15,7 +15,7 @@ export class Settings {
 		actionDescription: true,
 		letter: true,
 		phoneticSpellingAlphabet: false,
-		locationAssistance: false,
+		locationAssistance: true,
 	};
 	promptSpeechMethods = {
 		live: true,
