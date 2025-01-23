@@ -112,17 +112,11 @@ export class Model {
 			}
 		}
 
-		let keyLocationHint = this.keyboardLayout.fingerLocation(letter);
-		if (settings.keyPrompt.locationAssistance && keyLocationHint) {
-			if (keyLocationHint) {
-				promptText += keyLocationHint + ". ";
-			}
-		}
-
 		// Send the prompt to the presentation layer
 		new AssertivePromptEvent(promptText, "wordPrompt").send();
 
 		// Send the location hint as a delayed prompt
+		let keyLocationHint = this.keyboardLayout.fingerLocation(letter);
 		if (keyLocationHint && settings.keyPrompt.locationAssistance) {
 			delayedPrompt(keyLocationHint + ". ",  "wordPromptHint");
 		}
