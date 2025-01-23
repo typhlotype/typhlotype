@@ -1,9 +1,11 @@
 import { AssertivePromptEvent } from "../events/textPrompt/assertivePromptEvent.js";
+import { PolitePromptCancellationEvent } from "../events/textPrompt/politePromptCancellationEvent.js";
 import { PolitePromptEvent } from "../events/textPrompt/politePromptEvent.js";
 
 export function init() {
 	AssertivePromptEvent.subscribe(assertivePrompt);
 	PolitePromptEvent.subscribe(politePrompt);
+	PolitePromptCancellationEvent.subscribe(politePromptCancellation);
 }
 
 export function assertivePrompt(event: AssertivePromptEvent) {
@@ -42,4 +44,8 @@ function politePrompt(event: PolitePromptEvent) {
 	}
 
 	promptContainer.appendChild(prompt);
+}
+
+function politePromptCancellation(event: PolitePromptCancellationEvent) {
+	document.getElementById(event.id)?.remove();
 }
