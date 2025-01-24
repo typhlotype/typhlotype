@@ -42,8 +42,8 @@ async function build() {
 	console.log("Built successfully");
 
 	if (modifiedAfterBuild) {
-		build();
 		modifiedAfterBuild = false;
+		build();
 	}
 
 	buildLock = false;
