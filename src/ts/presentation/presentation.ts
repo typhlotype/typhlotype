@@ -1,7 +1,9 @@
-export function showSection(selectors: string) {
-	const element = document.querySelector(selectors);
+import * as wordDisplay from "./wordDisplay.js";
+
+export function showSection(selector: string) {
+	const element = document.querySelector(selector);
 	if (!element) {
-		throw new Error(`Element with selector \"${selectors}\" not found`);
+		throw new Error(`Element with selector \"${selector}\" not found`);
 	}
 
 	// Hide all other elements
@@ -11,6 +13,8 @@ export function showSection(selectors: string) {
 			otherElement.setAttribute("hidden", "true");
 		}
 	}
+
+	wordDisplay.setActive(selector === "#practice");
 
 	element.removeAttribute("hidden");
 }

@@ -1,8 +1,14 @@
 import { LetterPromptEvent } from "../events/activityPrompt/letterPromptEvent.js";
 
+let active = false;
+
 export function init() {
 	LetterPromptEvent.subscribe(updateWordDisplay);
 	addEventListener("resize", updateWordDisplayPosition);
+}
+
+export function setActive(value: boolean) {
+	active = value;
 }
 
 function getWordDisplayElement(): HTMLElement {
@@ -10,6 +16,10 @@ function getWordDisplayElement(): HTMLElement {
 }
 
 function updateWordDisplay(event: LetterPromptEvent) {
+	if (!active) {
+		return;
+	}
+
 	const element = getWordDisplayElement();
 
 	if (element === null) {
@@ -31,6 +41,10 @@ function updateWordDisplay(event: LetterPromptEvent) {
 }
 
 function updateWordDisplayPosition() {
+	if (!active) {
+		return;
+	}
+
 	const wordDisplay = getWordDisplayElement();
 	const typed = wordDisplay.querySelector(".typed") as HTMLElement;
 
