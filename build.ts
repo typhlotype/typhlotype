@@ -10,6 +10,7 @@ import * as path from "jsr:@std/path";
 import * as cli from "jsr:@std/cli";
 import * as clispinner from "jsr:@std/cli/unstable-spinner";
 import * as http from "jsr:@std/http";
+import { generateDynamicResourceIndices } from "./build/indexGeneration.ts";
 
 const targetDir = "target";
 
@@ -30,7 +31,7 @@ async function build() {
 		spinner.message = "Copying static files...";
 		await copyFiles();
 		spinner.message = "Generating resource indices...";
-		await generateResourceIndices();
+		await generateDynamicResourceIndices(targetDir);
 	} catch (e) {
 		spinner.stop();
 		buildLock = false;
@@ -67,24 +68,6 @@ async function copyFiles() {
 
 	await Deno.mkdir(path.join(targetDir, "src"));
 	await fs.copy(path.join("src", "ts"), path.join(targetDir, "src", "ts"));
-}
-
-async function generateResourceIndices() {
-	const wordSetPath = path.join("data", "words");
-	const wordSets = [];
-	for await (const file of fs.walk(wordSetPath)) {
-		if (file.isFile) {
-			const wordSet = JSON.parse(await Deno.readTextFile(file.path));
-			if (wordSet.id + ".json" != path.relative(wordSetPath, file.path).split(path.SEPARATOR).join('/')) {
-				console.log("Word set metadata ID is " + wordSet.id + ", but file name is " + file.path);
-				throw new Error(`Word set id mismatch in ${file.path}`);
-			}
-			wordSets.push({id: wordSet.id, language: wordSet.language, name: wordSet.name});
-		}
-	}
-	const collator = new Intl.Collator("en", { numeric: true });
-	wordSets.sort((a, b) => collator.compare(a.name, b.name));
-	await Deno.writeTextFile(path.join(targetDir, "data", "words", "index.json"), JSON.stringify(wordSets));
 }
 
 async function watch() {
