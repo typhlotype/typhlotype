@@ -1,21 +1,13 @@
-import {Inner} from "../inner.js";
+import { BaseEvent } from "../baseEvent.js";
 
-export class IncorrectKeyPromptEvent {
+export class IncorrectKeyPromptEvent extends BaseEvent {
 	correctLetter: string;
 	actualLetter: string;
 
-	static inner = new Inner<IncorrectKeyPromptEvent>();
-
 	constructor(correctLetter: string, actualLetter: string) {
+		super();
+
 		this.correctLetter = correctLetter;
 		this.actualLetter = actualLetter;
-	}
-
-	send() {
-		IncorrectKeyPromptEvent.inner.send(this);
-	}
-
-	static subscribe(subscriber: (e: IncorrectKeyPromptEvent) => void) {
-		IncorrectKeyPromptEvent.inner.subscribe(subscriber);
 	}
 }

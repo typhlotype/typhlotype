@@ -1,23 +1,15 @@
-import {Inner} from "../inner.js";
+import { BaseEvent } from "../baseEvent.js";
 
-export class LetterPromptEvent {
+export class LetterPromptEvent extends BaseEvent {
 	letter: string;
 	word: string;
 	wordPosition: number;
 
-	static inner = new Inner<LetterPromptEvent>();
-
 	constructor(word: string, wordPosition: number) {
+		super();
+
 		this.word = word;
 		this.wordPosition = wordPosition;
 		this.letter = word[wordPosition];
-	}
-
-	send() {
-		LetterPromptEvent.inner.send(this);
-	}
-
-	static subscribe(subscriber: (e: LetterPromptEvent) => void) {
-		LetterPromptEvent.inner.subscribe(subscriber);
 	}
 }

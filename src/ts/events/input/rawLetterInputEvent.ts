@@ -1,23 +1,11 @@
-import { Inner, EventUnsubscribeToken } from "../inner.js";
+import { BaseEvent } from "../baseEvent.js";
 
-export class RawLetterInputEvent {
+export class RawLetterInputEvent extends BaseEvent {
 	letter: string;
 
-	static inner = new Inner<RawLetterInputEvent>();
-
 	constructor(letters: string) {
+		super();
+
 		this.letter = letters;
-	}
-
-	send() {
-		RawLetterInputEvent.inner.send(this);
-	}
-
-	static subscribe(subscriber: (e: RawLetterInputEvent) => void): EventUnsubscribeToken {
-		return RawLetterInputEvent.inner.subscribe(subscriber);
-	}
-
-	static unsubscribe(token: number) {
-		RawLetterInputEvent.inner.unsubscribe(token);
 	}
 }

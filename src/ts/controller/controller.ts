@@ -10,7 +10,7 @@ import { RandomWordGenerator } from "../model/wordGenerators/randomWordGenerator
 import { StandardKeyboardLayout } from "../model/keyboardLayouts/standardKeyboardLayout.js";
 import { settings } from "../model/settingsModel.js";
 import { applyI18nLabels } from "../presentation/applyI18nLabels.js";
-import { SettingsChangeEvent } from "../events/SettingsChangeEvent.js";
+import { SettingsChangeEvent } from "../events/settingsChangeEvent.js";
 import { showSection } from "../presentation/presentation.js";
 
 /**

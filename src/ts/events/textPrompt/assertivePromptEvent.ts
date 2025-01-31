@@ -1,23 +1,5 @@
-import {Inner} from "../inner.js";
+import { PromptEvent } from "./promptEvent.js";
 
-export class AssertivePromptEvent {
-	text: string;
-	id: string | undefined;
+export class AssertivePromptEvent extends PromptEvent {
 
-	static inner = new Inner<AssertivePromptEvent>();
-
-	constructor(text: string, id?: string) {
-		this.text = text;
-		this.id = id;
-	}
-
-	send() {
-		AssertivePromptEvent.inner.send(this);
-	}
-
-	static subscribe(subscriber: (e: AssertivePromptEvent) => void) {
-		AssertivePromptEvent.inner.subscribe(subscriber);
-	}
 }
-
-

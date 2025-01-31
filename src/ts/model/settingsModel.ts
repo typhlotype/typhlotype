@@ -1,4 +1,4 @@
-import { SettingsChangeEvent } from "../events/SettingsChangeEvent.js";
+import { SettingsChangeEvent } from "../events/settingsChangeEvent.js";
 
 export class Settings {
 	language = {

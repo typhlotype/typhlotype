@@ -1,6 +1,6 @@
 import { charMap, i18n, phoneticSpellingAlphabet } from "./i18nMap.js";
 import { AssertivePromptEvent } from "../events/textPrompt/assertivePromptEvent.js";
-import { StateChangeEvent } from "../events/StateChangeEvent.js";
+import { StateChangeEvent } from "../events/stateChangeEvent.js";
 import { LetterPromptEvent } from "../events/activityPrompt/letterPromptEvent.js";
 import { RawLetterInputEvent } from "../events/input/rawLetterInputEvent.js";
 import { cancelDelayedPrompt, delayedPrompt } from "./delayedPrompt.js";
@@ -49,7 +49,7 @@ export class Model {
 		this.wordGenerator = wordGenerator;
 		this.word = this.wordGenerator.getNextWord();
 
-		this.rawLetterInputEventUnsubscribeToken = RawLetterInputEvent.subscribe((e) => this.letterInput(e));
+		this.rawLetterInputEventUnsubscribeToken = RawLetterInputEvent.subscribe((e: RawLetterInputEvent) => this.letterInput(e));
 	}
 
 	/**

@@ -1,20 +1,12 @@
-import {Inner} from "../inner.js";
+import { BaseEvent } from "../baseEvent.js";
 
-export class DelayedHintFireEvent {
+export class DelayedHintFireEvent extends BaseEvent {
 	letter: string;
 
-	static inner = new Inner<DelayedHintFireEvent>();
-
 	constructor(prompt: string, letter: string) {
+		super();
+
 		this.letter = letter;
-	}
-
-	send() {
-		DelayedHintFireEvent.inner.send(this);
-	}
-
-	static subscribe(subscriber: (e: DelayedHintFireEvent) => void) {
-		DelayedHintFireEvent.inner.subscribe(subscriber);
 	}
 }
 

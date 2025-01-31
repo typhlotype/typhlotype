@@ -5,7 +5,7 @@
  */
 
 import { Settings, applySettings, settings } from "../model/settingsModel.js";
-import { SettingsChangeEvent } from "../events/SettingsChangeEvent.js";
+import { SettingsChangeEvent } from "../events/settingsChangeEvent.js";
 
 let WORDS_INDEX: any;
 
