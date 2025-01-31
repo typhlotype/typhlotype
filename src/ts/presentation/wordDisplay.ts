@@ -1,21 +1,29 @@
 import { LetterPromptEvent } from "../events/activityPrompt/letterPromptEvent.js";
+import { Model } from "../model/model.js";
 
 let active = false;
+let model: Model;
 
-export function init() {
+export function init(globalModel: Model) {
+	model = globalModel;
 	LetterPromptEvent.subscribe(updateWordDisplay);
 	addEventListener("resize", updateWordDisplayPosition);
 }
 
+export function updateModel(globalModel: Model) {
+	model = globalModel;
+}
+
 export function setActive(value: boolean) {
 	active = value;
+	updateWordDisplay({ word: model.word, wordPosition: model.position });
 }
 
 function getWordDisplayElement(): HTMLElement {
 	return document.querySelector("#wordDisplay") as HTMLElement;
 }
 
-function updateWordDisplay(event: LetterPromptEvent) {
+function updateWordDisplay(event: { word: string, wordPosition: number }) {
 	if (!active) {
 		return;
 	}

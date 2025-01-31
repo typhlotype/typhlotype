@@ -63,7 +63,9 @@ export class Controller {
 
 		if (!reinit) {
 			livePrompt.init();
-			wordDisplay.init();
+			wordDisplay.init(this.model);
+		} else {
+			wordDisplay.updateModel(this.model);
 		}
 
 		const controller = this;
