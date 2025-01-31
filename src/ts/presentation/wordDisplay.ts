@@ -2,10 +2,15 @@ import { LetterPromptEvent } from "../events/activityPrompt/letterPromptEvent.js
 
 export function init() {
 	LetterPromptEvent.subscribe(updateWordDisplay);
+	addEventListener("resize", updateWordDisplayPosition);
+}
+
+function getWordDisplayElement(): HTMLElement {
+	return document.querySelector("#wordDisplay") as HTMLElement;
 }
 
 function updateWordDisplay(event: LetterPromptEvent) {
-	const element = document.querySelector("#wordDisplay") as HTMLElement;
+	const element = getWordDisplayElement();
 
 	if (element === null) {
 		console.error("#wordDisplay is null!");
@@ -19,12 +24,18 @@ function updateWordDisplay(event: LetterPromptEvent) {
 	const remainingElement = createSpanWithText(remaining, "remaining");
 
 	element.innerHTML = "";
-	element.appendChild(typedElement)
-	element.appendChild(remainingElement)
+	element.appendChild(typedElement);
+	element.appendChild(remainingElement);
+
+	updateWordDisplayPosition();
+}
+
+function updateWordDisplayPosition() {
+	const wordDisplay = getWordDisplayElement();
+	const typed = wordDisplay.querySelector(".typed") as HTMLElement;
 
 	const leftPos = document.querySelector("#wrapper")?.children[0].getBoundingClientRect().x ?? 0;
-
-	element.style.left = (leftPos - typedElement.offsetWidth) + "px";
+	wordDisplay.style.left = (leftPos - typed.offsetWidth) + "px";
 }
 
 function createSpanWithText(text: string, className: string): HTMLElement {
