@@ -1,20 +1,29 @@
 /**
- * This module is responsible for handling the settings page. It reads the
- * settings from the page and updates the settings model accordingly. It also
- * saves the settings to local storage and reads them from there on startup.
+ * This module is responsible for handling the settings page and persistant
+ * settings storage. It reads the settings from the page and updates the
+ * settings model accordingly. It also saves the settings to local storage and
+ * reads them from there on startup, and handles detection of the user's
+ * language if no settings exist.
  */
 
 import { Settings, applySettings, settings } from "../model/settingsModel.js";
 import { SettingsChangeEvent } from "../events/settingsChangeEvent.js";
 
 let WORDS_INDEX: any;
+let TRANSLATION_INDEX: any;
 
 export async function init() {
 	SettingsChangeEvent.subscribe(saveNewSettings);
 
 	try {
 		const savedSettingsString = localStorage.getItem("settings");
+
 		if (!savedSettingsString) {
+			// There were no saved settings. Default settings are already
+			// applied. Language detection is handled in `detectLanguage()`,
+			// which is called elsewhere after the language index is loaded
+			// dynamically.
+
 			return;
 		}
 
@@ -26,6 +35,8 @@ export async function init() {
 	}
 }
 
+
+
 export async function initDom(reinit: boolean) {
 	if (!reinit) {
 		for (const element of document.querySelectorAll("[data-action-fieldset=\"apply\"]") as unknown as [Element]) {
@@ -36,8 +47,34 @@ export async function initDom(reinit: boolean) {
 	}
 }
 
-export function updateIndicies(wordsIndex: any) {
+export function updateIndicies(wordsIndex: any, translationIndex: any) {
 	WORDS_INDEX = wordsIndex;
+	TRANSLATION_INDEX = translationIndex;
+}
+
+export function languageDetection() {
+	if (!settings.language.interfaceLanguage) {
+		settings.language.interfaceLanguage = choosePreferredLanguage(TRANSLATION_INDEX.map((e: any) => { return e.id; }));
+	}
+}
+
+function choosePreferredLanguage(languageOptions: string[]) {
+	for (const language of navigator.languages) {
+		let languageCodeParts = language.split('-');
+
+		if (languageOptions.includes(language)) {
+			return language;
+		} else {
+			languageCodeParts.pop();
+
+			if (languageCodeParts.length == 0) {
+				continue;
+			}
+		}
+	}
+
+	// Hardcoded fallback
+	return "en";
 }
 
 function saveNewSettings() {
@@ -83,7 +120,9 @@ function updateSettingsFromElement(element: Element, newSettings: Partial<Settin
 }
 
 export function updatePageFromSettings() {
-	updateWordSetOptions();
+	updateDynamicResourceOptions("language.wordSetVariant", WORDS_INDEX, 1, (dynamicResource: any) => { return dynamicResource.language === settings.language.wordSetLanguage; });
+
+	updateDynamicResourceOptions("language.interfaceLanguage", TRANSLATION_INDEX);
 
 	updatePageValues()
 }
@@ -111,17 +150,17 @@ function updatePageValues() {
 	}
 }
 
-function updateWordSetOptions() {
-	let wordSetLanguage = document.querySelector("[data-settings-key=\"language.wordSetVariant\"]") as HTMLSelectElement;
+function updateDynamicResourceOptions(settingsKey: string, index: any, subResourceNumber = 0, subResourceFilter?: (dynamicResource: any) => boolean) {
+	let selectElement = document.querySelector("[data-settings-key=\"" + settingsKey + "\"]") as HTMLSelectElement;
 
-	wordSetLanguage.clear();
+	selectElement.clear();
 
-	for (const wordset of WORDS_INDEX) {
-		if (wordset.language !== settings.language.wordSetLanguage) {
+	for (const dynamicResource of index) {
+		if (subResourceFilter && !subResourceFilter(dynamicResource)) {
 			continue;
 		}
 
-		wordSetLanguage.add(new Option(wordset.name, wordset.id.split("/")[1]));
+		selectElement.add(new Option(dynamicResource.name, dynamicResource.id.split("/")[subResourceNumber]));
 	}
 }
 

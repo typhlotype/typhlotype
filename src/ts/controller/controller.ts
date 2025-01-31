@@ -36,16 +36,23 @@ export class Controller {
 			settingsController.init();
 		}
 
-		// Load words and i18n data
-		const [words, wordsIndex, translation, keyboardLayoutSpec] = await Promise.all([
-			dataFetch.get(`words/${settings.language.wordSetLanguage}/${settings.language.wordSetVariant}.json`),
+		// Load indicies, which contain information about dynamic resources are
+		// available.
+		const [wordsIndex, translationIndex] = await Promise.all([
 			dataFetch.get(`words/index.json`),
+			dataFetch.get(`translations/index.json`),
+		]);
+
+		settingsController.updateIndicies(wordsIndex, translationIndex);
+		settingsController.languageDetection();
+
+		// Load words and i18n data
+		const [words, translation, keyboardLayoutSpec] = await Promise.all([
+			dataFetch.get(`words/${settings.language.wordSetLanguage}/${settings.language.wordSetVariant}.json`),
 			dataFetch.get(`translations/${settings.language.interfaceLanguage}.json`),
 			dataFetch.get(`keyboardLayouts/${settings.input.layoutRegion}/${settings.input.layoutVariant}.json`),
 		]);
 		i18nMap.setMap(translation, settings.language.interfaceLanguage || "en");
-
-		settingsController.updateIndicies(wordsIndex);
 
 		this.model?.drop();
 

@@ -2,12 +2,12 @@ import { SettingsChangeEvent } from "../events/settingsChangeEvent.js";
 
 export class Settings {
 	language = {
-		interfaceLanguage: "en" as string,
-		wordSetLanguage: "en" as string,
-		wordSetVariant: "1000" as string,
+		interfaceLanguage: undefined as string | undefined,
+		wordSetLanguage: "en" as string | undefined,
+		wordSetVariant: "1000" as string | undefined,
 	};
 	input = {
-		layoutRegion: "basic",
+		layoutRegion: "basic" as string | undefined,
 		layoutVariant: "qwerty",
 		angleMod: "straight" as "left" | "right" | "straight",
 	};
