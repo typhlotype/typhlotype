@@ -53,7 +53,28 @@ export function updateIndicies(wordsIndex: any, translationIndex: any) {
 }
 
 export function languageDetection() {
+	if (!settings.language.interfaceLanguage) {
+		settings.language.interfaceLanguage = choosePreferredLanguage(TRANSLATION_INDEX.map((e: any) => { return e.id; }));
+	}
+}
 
+function choosePreferredLanguage(languageOptions: string[]) {
+	for (const language of navigator.languages) {
+		let languageCodeParts = language.split('-');
+
+		if (languageOptions.includes(language)) {
+			return language;
+		} else {
+			languageCodeParts.pop();
+
+			if (languageCodeParts.length == 0) {
+				continue;
+			}
+		}
+	}
+
+	// Hardcoded fallback
+	return "en";
 }
 
 function saveNewSettings() {

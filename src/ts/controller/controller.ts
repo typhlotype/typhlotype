@@ -44,6 +44,7 @@ export class Controller {
 		]);
 
 		settingsController.updateIndicies(wordsIndex, translationIndex);
+		settingsController.languageDetection();
 
 		// Load words and i18n data
 		const [words, translation, keyboardLayoutSpec] = await Promise.all([
