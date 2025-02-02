@@ -8,6 +8,7 @@ import { settings } from "./settingsModel.js";
 import { LetterInputEvent } from "../events/input/letterInputEvent.js";
 import { KeyboardLayout } from "./keyboardLayout.js";
 import { WordGenerator } from "./wordGenerator.js";
+import { Droppable } from "../droppable.js"
 
 /**
  * The Model class is responsible for managing the state and behavior of the
@@ -35,8 +36,10 @@ export class Model {
 	 * The word generator to use to get new words.
 	 */
 	wordGenerator: WordGenerator;
-
-	rawLetterInputEventUnsubscribeToken: any;
+	/**
+	 * Objects on which `drop()` should be called when this model is dropped.
+	 */
+	eventUnsubscribeTokens: Droppable[] = [];
 
 	/**
 	 * Creates a new Model instance.
@@ -49,7 +52,7 @@ export class Model {
 		this.wordGenerator = wordGenerator;
 		this.word = this.wordGenerator.getNextWord();
 
-		this.rawLetterInputEventUnsubscribeToken = RawLetterInputEvent.subscribe((e: RawLetterInputEvent) => this.letterInput(e));
+		this.eventUnsubscribeTokens.push(RawLetterInputEvent.subscribe((e: RawLetterInputEvent) => this.letterInput(e)));
 	}
 
 	/**
@@ -160,7 +163,9 @@ export class Model {
 	}
 
 	drop() {
-		RawLetterInputEvent.unsubscribe(this.rawLetterInputEventUnsubscribeToken);
+		for (const token of this.eventUnsubscribeTokens) {
+			token.drop();
+		}
 	}
 }
 
