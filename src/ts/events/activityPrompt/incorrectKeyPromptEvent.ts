@@ -1,6 +1,6 @@
 import { BaseEvent } from "../baseEvent.js";
 
-export class IncorrectKeyPromptEvent extends BaseEvent {
+export class IncorrectInputPromptEvent extends BaseEvent {
 	correctLetter: string;
 	actualLetter: string;
 

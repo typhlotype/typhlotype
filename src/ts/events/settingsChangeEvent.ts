@@ -1,5 +1,5 @@
-import { BaseEvent } from "./baseEvent.js";
+import { StateChangeEvent } from "./stateChangeEvent.js";
 
-export class SettingsChangeEvent extends BaseEvent {
+export class SettingsChangeEvent extends StateChangeEvent {
 
 }

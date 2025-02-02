@@ -2,13 +2,14 @@ import { charMap, i18n, phoneticSpellingAlphabet } from "./i18nMap.js";
 import { AssertivePromptEvent } from "../events/textPrompt/assertivePromptEvent.js";
 import { StateChangeEvent } from "../events/stateChangeEvent.js";
 import { LetterPromptEvent } from "../events/activityPrompt/letterPromptEvent.js";
-import { RawLetterInputEvent } from "../events/input/rawLetterInputEvent.js";
 import { cancelDelayedPrompt, delayedPrompt } from "./delayedPrompt.js";
 import { settings } from "./settingsModel.js";
-import { LetterInputEvent } from "../events/input/letterInputEvent.js";
+import { RawLetterInputEvent } from "../events/input/rawLetterInputEvent.js";
+import { CorrectLetterInputEvent } from "../events/input/correctLetterInputEvent.js";
+import { IncorrectLetterInputEvent } from "../events/input/incorrectLetterInputEvent.js";
 import { KeyboardLayout } from "./keyboardLayout.js";
 import { WordGenerator } from "./wordGenerator.js";
-import { Droppable } from "../droppable.js"
+import { Dropper } from "../droppable.js"
 
 /**
  * The Model class is responsible for managing the state and behavior of the
@@ -18,7 +19,7 @@ import { Droppable } from "../droppable.js"
  * generator. It also receives input events (from the `controller` module) and
  * generates events to communicate with the user (through the `ui` module).
  */
-export class Model {
+export class Model extends Dropper {
 	/**
 	 * The current word that the user should type, including correctly typed
 	 * letters.
@@ -37,9 +38,9 @@ export class Model {
 	 */
 	wordGenerator: WordGenerator;
 	/**
-	 * Objects on which `drop()` should be called when this model is dropped.
+	 * The time that the user was prompted to enter the current letter.
 	 */
-	eventUnsubscribeTokens: Droppable[] = [];
+	promptTime?: DOMHighResTimeStamp;
 
 	/**
 	 * Creates a new Model instance.
@@ -47,12 +48,14 @@ export class Model {
 	 * @param wordGenerator The word generator to use to get new words.
 	 */
 	constructor(wordGenerator: WordGenerator, keyboardLayout: KeyboardLayout) {
+		super();
+
 		this.position = 0;
 		this.keyboardLayout = keyboardLayout;
 		this.wordGenerator = wordGenerator;
 		this.word = this.wordGenerator.getNextWord();
 
-		this.eventUnsubscribeTokens.push(RawLetterInputEvent.subscribe((e: RawLetterInputEvent) => this.letterInput(e)));
+		this.addDroppable(RawLetterInputEvent.subscribe((e: RawLetterInputEvent) => this.letterInput(e)));
 	}
 
 	/**
@@ -74,6 +77,7 @@ export class Model {
 	restart() {
 		this.nextWord();
 		this.prompt();
+		new StateChangeEvent().send();
 	}
 
 	/**
@@ -83,9 +87,7 @@ export class Model {
 	 * @param prefix An optional prefix to add to the prompt.
 	 */
 	prompt(prefix?: string) {
-		new LetterPromptEvent(this.word, this.position).send();
-		new StateChangeEvent().send();
-
+		this.promptTime = performance.now();
 		cancelDelayedPrompt("wordPromptHint");
 
 		let promptText = "";
@@ -117,11 +119,12 @@ export class Model {
 
 		// Send the prompt to the presentation layer
 		new AssertivePromptEvent(promptText, "wordPrompt").send();
+		new LetterPromptEvent(this.word, this.position).send();
 
 		// Send the location hint as a delayed prompt
 		let keyLocationHint = this.keyboardLayout.fingerLocation(letter);
 		if (keyLocationHint && settings.keyPrompt.locationAssistance) {
-			delayedPrompt(keyLocationHint + ". ",  "wordPromptHint");
+			delayedPrompt(keyLocationHint + ". ", letter,  "wordPromptHint");
 		}
 	}
 
@@ -135,23 +138,48 @@ export class Model {
 		} else {
 			this.nextWord();
 		}
+
+		new StateChangeEvent().send();
 	}
 
 	/**
-	 * Handles a `RawLetterInputEvent` by advancing to the next letter and
-	 * emitting a `LetterInputEvent`.
+	 * Handles a `LetterInputEvent` by determining whether it is correct and
+	 * advancing to the next letter.
+	 *
+	 * Also emits a `CorrectLetterInputEvent`, an `IncorrectLetterInputEvent`,
+	 * or a `LetterInputEvent` if correctness is not measured (for example in
+	 * free typing mode).
 	 *
 	 * @param event The event to handle.
 	 */
 	letterInput(event: RawLetterInputEvent) {
 		if (event.letter == this.requestedLetter()) {
+			// Correct input
+			const timeTaken = this.measureTimeTaken();
 			this.advanceLetter();
 			this.prompt();
-			new LetterInputEvent(event.letter, 1).send();
+			new CorrectLetterInputEvent(event.letter, timeTaken).send();
 		} else {
+			// Incorrect input
 			this.prompt(i18n("prompt.incorrect"));
-			new LetterInputEvent(event.letter, 0).send();
+			new IncorrectLetterInputEvent(event.letter).send();
 		}
+	}
+
+	/**
+	 * Measures how much time has elapsed since `this.promptTime`. Returns
+	 *
+	 *
+	 * @returns The time elapsed since `this.promptTime`, or undefined if
+	 * `this.promptTime` is undefined or in the future.
+	 */
+	measureTimeTaken(): DOMHighResTimeStamp | undefined {
+		const inputTime = performance.now();
+		let timeTaken: DOMHighResTimeStamp | undefined;
+		if (this.promptTime && (this.promptTime < inputTime)) {
+			timeTaken = inputTime - this.promptTime;
+		}
+		return timeTaken;
 	}
 
 	/**
@@ -160,12 +188,6 @@ export class Model {
 	nextWord() {
 		this.word = this.wordGenerator.getNextWord();
 		this.position = 0;
-	}
-
-	drop() {
-		for (const token of this.eventUnsubscribeTokens) {
-			token.drop();
-		}
 	}
 }
 

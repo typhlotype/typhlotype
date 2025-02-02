@@ -1,17 +1,12 @@
 import { BaseEvent } from "../baseEvent.js";
 
 export class LetterInputEvent extends BaseEvent {
-	letters: string;
-	/** Whether the letter is correct. `null` if it was not checked for
-		correctness (e.g. free-typing mode). */
-	correctUntil: number | null;
+	letter: string;
+	timeTaken?: DOMHighResTimeStamp;
 
-	constructor(letters: string, correctUntil: number | null) {
+	constructor(letter: string, timeTaken?: DOMHighResTimeStamp) {
 		super();
 
-		this.letters = letters;
-		this.correctUntil = correctUntil;
+		this.letter = letter;
 	}
 }
-
-

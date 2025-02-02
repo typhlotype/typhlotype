@@ -16,6 +16,7 @@ export class Settings {
 		letter: true,
 		phoneticSpellingAlphabet: false,
 		locationAssistance: true,
+		hintDelayTimeMs: 2000,
 	};
 	promptSpeechMethods = {
 		live: true,
