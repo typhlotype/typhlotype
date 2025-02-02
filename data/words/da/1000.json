@@ -2,6 +2,8 @@
 	"id": "da/1000",
 	"language": "da",
 	"name": "1000 mest brugte ord",
+	"default": true,
+	"language_name": "Dansk",
 	"words": [
 		"i",
 		"være",

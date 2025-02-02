@@ -2,6 +2,8 @@
 	"id": "en-us/1000",
 	"language": "en-us",
 	"name": "1000 most common words",
+	"default": true,
+	"language_name": "English (United States)",
 	"words": [
 		"the",
 		"be",
