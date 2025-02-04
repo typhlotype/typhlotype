@@ -1,0 +1,21 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: denoland/setup-deno@v2
+      with:
+        deno-version: v2.x
+    - name: Run build
+      run: deno --allow-all build.ts
+    - name: Run unit tests
+      run: deno test --unstable-sloppy-imports
