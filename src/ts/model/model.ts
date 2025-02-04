@@ -40,7 +40,7 @@ export class Model extends Dropper {
 	/**
 	 * The time that the user was prompted to enter the current letter.
 	 */
-	promptTime?: DOMHighResTimeStamp;
+	promptTime?: HighResTimeStamp;
 
 	/**
 	 * Creates a new Model instance.
@@ -173,9 +173,9 @@ export class Model extends Dropper {
 	 * @returns The time elapsed since `this.promptTime`, or undefined if
 	 * `this.promptTime` is undefined or in the future.
 	 */
-	measureTimeTaken(): DOMHighResTimeStamp | undefined {
+	measureTimeTaken(): HighResTimeStamp | undefined {
 		const inputTime = performance.now();
-		let timeTaken: DOMHighResTimeStamp | undefined;
+		let timeTaken: HighResTimeStamp | undefined;
 		if (this.promptTime && (this.promptTime < inputTime)) {
 			timeTaken = inputTime - this.promptTime;
 		}
@@ -191,5 +191,7 @@ export class Model extends Dropper {
 	}
 }
 
-
-
+/**
+ * A time stamp in milliseconds, which may be fractional.
+ */
+export type HighResTimeStamp = number;
