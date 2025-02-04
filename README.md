@@ -1,3 +1,5 @@
+Typhlotype is a tool for learning and practicing typing designed for people with impaired vision.
+
 ## Similar tools
 
 ### Designed to be accessible
@@ -8,7 +10,7 @@
 - [Keybr](https://www.keybr.com/): Free of charge. Web.
 - [Monkeytype](https://monkeytype.com/): Free of charge. Web.
 
-## How do develop and build
+## How do develop, build, and run
 
 This project has the following build dependencies:
 
@@ -17,8 +19,12 @@ This project has the following build dependencies:
 
 ### Building
 
-Run `./build.ts` (or `deno build.ts`).
+Run `./build.ts` (or `deno --allow-all build.ts`).
 
 ### Start development server
 
-Run `./build.ts --serve` (or `deno build.ts --serve`).
+Run `./build.ts --serve` (or `deno --allow-all build.ts --serve`).
+
+### Run tests
+
+Run `deno test --unstable-sloppy-imports`
