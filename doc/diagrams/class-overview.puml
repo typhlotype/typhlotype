@@ -1,0 +1,80 @@
+@startuml
+
+hide empty members
+
+abstract class Droppable
+
+interface Drop
+
+package events {
+	class BaseEvent
+
+	class EventManager
+
+	class EventSubscriptionToken
+
+	EventManager "1" --o "*" EventSubscriptionToken : generates >
+
+	BaseEvent <|-- SettingsChangeEvent
+	BaseEvent <|-- StateChangeEvent
+
+	package activityPrompt {
+		BaseEvent <|-- DelayedHintFireEvent
+		BaseEvent <|-- IncorrectKeyPromptEvent
+		BaseEvent <|-- LetterPromptEvent
+	}
+
+	package input {
+		BaseEvent <|-- RawLetterInputEvent
+		BaseEvent <|-- LetterInputEvent
+		LetterInputEvent <|-- CorrectLetterInputEvent
+		LetterInputEvent <|-- IncorrectLetterInputEvent
+	}
+
+	package textPrompt {
+		BaseEvent <|-- PromptEvent
+		BaseEvent <|-- PolitePromptCancellationEvent
+
+		PromptEvent <|-- AssertivePromptEvent
+		PromptEvent <|-- PolitePromptEvent
+	}
+}
+
+package model {
+	class Model
+
+	class Settings
+
+	interface KeyboardLayout
+	interface WordGenerator
+
+	package keyboardLayouts {
+		class StandardKeyboardLayout
+		KeyboardLayout <|-- StandardKeyboardLayout
+	}
+
+	package wordGenerators {
+		class RandomWordGenerator
+		WordGenerator <|-- RandomWordGenerator
+
+		interface WordSet
+	}
+}
+
+package controller {
+	class Controller
+
+	Controller "1" *-- "1" Model
+
+	package DataFetch {}
+
+	package SettingsController {}
+
+	SettingsController --> Settings : updates >
+}
+
+package presentation {
+
+}
+
+@enduml
