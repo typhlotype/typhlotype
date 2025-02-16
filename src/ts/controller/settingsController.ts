@@ -56,6 +56,17 @@ export function languageDetection() {
 	if (!settings.language.interfaceLanguage) {
 		settings.language.interfaceLanguage = choosePreferredLanguage(TRANSLATION_INDEX.map((e: any) => { return e.id; }));
 	}
+	if (!settings.language.wordSetLanguage) {
+		settings.language.wordSetLanguage = choosePreferredLanguage(
+			WORDS_INDEX
+			.filter((e: any) => { return e.defaultForLanguage && e.languageName })
+			.map((e: any) => { return e.language; })
+		);
+		settings.language.wordSetVariant = WORDS_INDEX
+			.filter((e: any) => { return e.language == settings.language.wordSetLanguage && e.defaultForLanguage })
+			.map((e: any) => { return e.id; })[0]
+			.split("/")[1];
+	}
 }
 
 function choosePreferredLanguage(languageOptions: string[]) {
@@ -73,6 +84,7 @@ function choosePreferredLanguage(languageOptions: string[]) {
 		}
 	}
 
+	console.warn("No preferred language found. Falling back to hardcoded default.");
 	// Hardcoded fallback
 	return "en";
 }
@@ -120,7 +132,8 @@ function updateSettingsFromElement(element: Element, newSettings: Partial<Settin
 }
 
 export function updatePageFromSettings() {
-	updateDynamicResourceOptions("language.wordSetVariant", WORDS_INDEX, 1, (dynamicResource: any) => { return dynamicResource.language === settings.language.wordSetLanguage; });
+	updateDynamicResourceOptions("language.wordSetVariant", WORDS_INDEX, 1, (dynamicResource) => { return dynamicResource.language === settings.language.wordSetLanguage; });
+	updateDynamicResourceOptions("language.wordSetLanguage", WORDS_INDEX, 0, (e) => { return e.defaultForLanguage && e.languageName; }, (e) => { return {name: e.languageName, id: e.id}; } );
 
 	updateDynamicResourceOptions("language.interfaceLanguage", TRANSLATION_INDEX);
 
@@ -150,7 +163,7 @@ function updatePageValues() {
 	}
 }
 
-function updateDynamicResourceOptions(settingsKey: string, index: any, subResourceNumber = 0, subResourceFilter?: (dynamicResource: any) => boolean) {
+function updateDynamicResourceOptions(settingsKey: string, index: any, subResourceNumber = 0, subResourceFilter?: (dynamicResource: any) => boolean, subResourceMap: (dynamicResource: any) => {id: string, name: string} = (e) => e) {
 	let selectElement = document.querySelector("[data-settings-key=\"" + settingsKey + "\"]") as HTMLSelectElement;
 
 	selectElement.clear();
@@ -160,7 +173,8 @@ function updateDynamicResourceOptions(settingsKey: string, index: any, subResour
 			continue;
 		}
 
-		selectElement.add(new Option(dynamicResource.name, dynamicResource.id.split("/")[subResourceNumber]));
+		const mappedDynamicResource = subResourceMap(dynamicResource);
+		selectElement.add(new Option(mappedDynamicResource.name, mappedDynamicResource.id.split("/")[subResourceNumber]));
 	}
 }
 
