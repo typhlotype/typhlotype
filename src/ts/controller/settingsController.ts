@@ -8,6 +8,13 @@
 
 import { Settings, applySettings, settings } from "../model/settingsModel.js";
 import { SettingsChangeEvent } from "../events/settingsChangeEvent.js";
+import * as persistance from "./persistance.js";
+
+/**
+ * The language that should be chosen if the user does not prefer a language
+ * that is among those available or if language detection is not available.
+ */
+const LANGUAGE_FALLBACK = "en";
 
 let WORDS_INDEX: any;
 let TRANSLATION_INDEX: any;
@@ -16,7 +23,7 @@ export async function init() {
 	SettingsChangeEvent.subscribe(saveNewSettings);
 
 	try {
-		const savedSettingsString = localStorage.getItem("settings");
+		const savedSettingsString = persistance.getItem("settings");
 
 		if (!savedSettingsString) {
 			// There were no saved settings. Default settings are already
@@ -54,14 +61,14 @@ export function updateIndicies(wordsIndex: any, translationIndex: any) {
 
 export function languageDetection() {
 	if (!settings.language.interfaceLanguage) {
-		settings.language.interfaceLanguage = choosePreferredLanguage(TRANSLATION_INDEX.map((e: any) => { return e.id; }));
+		settings.language.interfaceLanguage = choosePreferredLanguage(TRANSLATION_INDEX.map((e: any) => { return e.id; })) || LANGUAGE_FALLBACK;
 	}
 	if (!settings.language.wordSetLanguage) {
 		settings.language.wordSetLanguage = choosePreferredLanguage(
 			WORDS_INDEX
 			.filter((e: any) => { return e.defaultForLanguage && e.languageName })
 			.map((e: any) => { return e.language; })
-		);
+		) || LANGUAGE_FALLBACK;
 		settings.language.wordSetVariant = WORDS_INDEX
 			.filter((e: any) => { return e.language == settings.language.wordSetLanguage && e.defaultForLanguage })
 			.map((e: any) => { return e.id; })[0]
@@ -69,6 +76,11 @@ export function languageDetection() {
 	}
 }
 
+/**
+ * Detects the user's preferred language from among the given options. Returns
+ * null if the user does not prefer a language that is among the given options
+ * or if language detection is not available.
+ */
 function choosePreferredLanguage(languageOptions: string[]) {
 	for (const language of navigator.languages) {
 		let languageCodeParts = language.split('-');
@@ -85,14 +97,16 @@ function choosePreferredLanguage(languageOptions: string[]) {
 	}
 
 	console.warn("No preferred language found. Falling back to hardcoded default.");
-	// Hardcoded fallback
-	return "en";
+	return null;
 }
 
 function saveNewSettings() {
-	localStorage.setItem("settings", JSON.stringify(settings));
+	persistance.setItem("settings", JSON.stringify(settings));
 }
 
+/**
+ * Reads the settings that have been selected in the GUI and applies them.
+ */
 function updateSettingsFromPage() {
 	const newSettings: Partial<Settings> = {};
 
@@ -103,6 +117,10 @@ function updateSettingsFromPage() {
 	applySettings(newSettings);
 }
 
+/**
+ * Reads the setting that has been selected in a single element in the GUI and
+ * applies it.
+ */
 function updateSettingsFromElement(element: Element, newSettings: Partial<Settings>) {
 	const keyPath = element.getAttribute("data-settings-key");
 
@@ -134,7 +152,6 @@ function updateSettingsFromElement(element: Element, newSettings: Partial<Settin
 export function updatePageFromSettings() {
 	updateDynamicResourceOptions("language.wordSetVariant", WORDS_INDEX, 1, (dynamicResource) => { return dynamicResource.language === settings.language.wordSetLanguage; });
 	updateDynamicResourceOptions("language.wordSetLanguage", WORDS_INDEX, 0, (e) => { return e.defaultForLanguage && e.languageName; }, (e) => { return {name: e.languageName, id: e.id}; } );
-
 	updateDynamicResourceOptions("language.interfaceLanguage", TRANSLATION_INDEX);
 
 	updatePageValues()

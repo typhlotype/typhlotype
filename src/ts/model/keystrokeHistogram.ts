@@ -2,7 +2,7 @@ export class KeystrokeHistogram {
 	keystrokes: Map<string, Array<KeystrokeValue>> = new Map();
 
 	/**
-	 * Insert a keystroke into the histogram .
+	 * Insert a keystroke into the histogram.
 	 */
 	insertKeystroke(letter: string, timeTaken: DOMHighResTimeStamp) {
 		const keystroke = KeystrokeValue.now(timeTaken);
@@ -15,7 +15,7 @@ export class KeystrokeHistogram {
 	}
 
 	getWeigtedAverage() {
-
+		// TODO
 	}
 }
 
@@ -25,20 +25,13 @@ class KeystrokeValue {
 	 */
 	timeTaken: DOMHighResTimeStamp;
 	/**
-	 * The time the keystroke was entered, used for weighting.
-	 */	/**
-	 * The time the keystroke was entered, used for weighting.
-	 */
-	timeOccured: Date;
-	/**
 	 * A weigting multiplier. This can for example be used if multiple
 	 * KeystrokeValues have been coaleced into a single KeystrokeValue.
 	 */
 	weight = 1;
 
-	constructor(timeTaken: DOMHighResTimeStamp, timeOccured: Date, weight?: number) {
+	constructor(timeTaken: DOMHighResTimeStamp, weight?: number) {
 		this.timeTaken = timeTaken;
-		this.timeOccured = timeOccured;
 
 		if (weight) {
 			this.weight = weight;
@@ -52,6 +45,6 @@ class KeystrokeValue {
 	 * @returns
 	 */
 	static now(timeTaken: DOMHighResTimeStamp): KeystrokeValue {
-		return new KeystrokeValue(timeTaken, new Date());
+		return new KeystrokeValue(timeTaken);
 	}
 }
