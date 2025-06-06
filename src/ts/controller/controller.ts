@@ -13,7 +13,7 @@ import { applyI18nLabels } from "../presentation/applyI18nLabels.js";
 import { SettingsChangeEvent } from "../events/settingsChangeEvent.js";
 import { showSection } from "../presentation/presentation.js";
 import { Module } from "../module.js";
-import { TypingTimer } from "./typingTimer.js";
+import { TypingTimer } from "../model/typingTimer.js";
 
 /**
  * The Controller class is responsible for handling platform-dependant data

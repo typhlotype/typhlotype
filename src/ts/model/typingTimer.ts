@@ -9,7 +9,7 @@ export class TypingTimer implements Module {
 	}
 
 	recordInput(e: CorrectLetterInputEvent) {
-		console.log("Recorded input", e.letter, e.timeTaken);
+		// TODO #23
 	}
 
 	initialize(): void {
