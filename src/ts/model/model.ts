@@ -167,8 +167,7 @@ export class Model extends Dropper {
 	}
 
 	/**
-	 * Measures how much time has elapsed since `this.promptTime`. Returns
-	 *
+	 * Measures how much time has elapsed since `this.promptTime`.
 	 *
 	 * @returns The time elapsed since `this.promptTime`, or undefined if
 	 * `this.promptTime` is undefined or in the future.

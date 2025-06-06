@@ -9,5 +9,6 @@ export class LetterInputEvent extends BaseEvent {
 		super();
 
 		this.letter = letter;
+		this.timeTaken = timeTaken;
 	}
 }

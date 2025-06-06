@@ -12,6 +12,8 @@ import { settings } from "../model/settingsModel.js";
 import { applyI18nLabels } from "../presentation/applyI18nLabels.js";
 import { SettingsChangeEvent } from "../events/settingsChangeEvent.js";
 import { showSection } from "../presentation/presentation.js";
+import { Module } from "../module.js";
+import { TypingTimer } from "../model/typingTimer.js";
 
 /**
  * The Controller class is responsible for handling platform-dependant data
@@ -20,6 +22,7 @@ import { showSection } from "../presentation/presentation.js";
  */
 export class Controller {
 	model: Model | null = null;
+	modules: Module[] = [];
 
 	/**
 	 * Private constructor to enforce the use of the static 'new' method.
@@ -58,9 +61,11 @@ export class Controller {
 
 		const wordGenerator = new RandomWordGenerator(words);
 		const keyboardLayout = new StandardKeyboardLayout(keyboardLayoutSpec)
-		this.model = new Model(wordGenerator, keyboardLayout);
+		const model = new Model(wordGenerator, keyboardLayout);
+		this.model = model;
 
 
+		// Legacy "modules" are initialized manually
 		if (!reinit) {
 			livePrompt.init();
 			wordDisplay.init(this.model);
@@ -68,8 +73,13 @@ export class Controller {
 			wordDisplay.updateModel(this.model);
 		}
 
-		const controller = this;
+		if (!reinit) {
+			this.modules.push(new TypingTimer());
+		}
 
+		this.modules.forEach((e) => e.initialize(model, reinit));
+
+		const controller = this;
 		if (document.readyState === "loading") {
 			document.addEventListener("DOMContentLoaded", async function() {
 				controller.initDom(reinit);
