@@ -2,8 +2,12 @@ import { Model } from "../model/model.js";
 import * as i18nMap from "../model/i18nMap.js";
 import * as dataFetch from "../controller/dataFetch.js";
 import * as settingsController from "../controller/settingsController.js";
-import * as livePrompt from "../presentation/livePrompt.js";
+// Modules
+import { LivePrompt } from "../presentation/livePrompt.js";
+import { Module } from "../module.js";
+import { TypingTimer } from "../model/typingTimer.js";
 import * as wordDisplay from "../presentation/wordDisplay.js";
+// Various
 import { RawLetterInputEvent } from "../events/input/rawLetterInputEvent.js";
 import { cancelDelayedPrompt } from "../model/delayedPrompt.js";
 import { RandomWordGenerator } from "../model/wordGenerators/randomWordGenerator.js";
@@ -12,8 +16,6 @@ import { settings } from "../model/settingsModel.js";
 import { applyI18nLabels } from "../presentation/applyI18nLabels.js";
 import { SettingsChangeEvent } from "../events/settingsChangeEvent.js";
 import { showSection } from "../presentation/presentation.js";
-import { Module } from "../module.js";
-import { TypingTimer } from "../model/typingTimer.js";
 
 /**
  * The Controller class is responsible for handling platform-dependant data
@@ -67,13 +69,13 @@ export class Controller {
 
 		// Legacy "modules" are initialized manually
 		if (!reinit) {
-			livePrompt.init();
 			wordDisplay.init(this.model);
 		} else {
 			wordDisplay.updateModel(this.model);
 		}
 
 		if (!reinit) {
+			this.modules.push(new LivePrompt())
 			this.modules.push(new TypingTimer());
 		}
 
