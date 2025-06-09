@@ -1,3 +1,4 @@
+import { ActiveSectionChangeEvent } from "../events/presentation/activeSectionChangeEvent.js";
 import * as wordDisplay from "./wordDisplay.js";
 
 export function showSection(selector: string) {
@@ -14,7 +15,7 @@ export function showSection(selector: string) {
 		}
 	}
 
-	wordDisplay.setActive(selector === "#practice");
+	(new ActiveSectionChangeEvent(selector)).send();
 
 	element.removeAttribute("hidden");
 }

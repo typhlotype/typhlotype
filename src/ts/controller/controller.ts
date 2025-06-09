@@ -6,7 +6,7 @@ import * as settingsController from "../controller/settingsController.js";
 import { LivePrompt } from "../presentation/livePrompt.js";
 import { Module } from "../module.js";
 import { TypingTimer } from "../model/typingTimer.js";
-import * as wordDisplay from "../presentation/wordDisplay.js";
+import { WordDisplay } from "../presentation/wordDisplay.js";
 // Various
 import { RawLetterInputEvent } from "../events/input/rawLetterInputEvent.js";
 import { cancelDelayedPrompt } from "../model/delayedPrompt.js";
@@ -66,17 +66,10 @@ export class Controller {
 		const model = new Model(wordGenerator, keyboardLayout);
 		this.model = model;
 
-
-		// Legacy "modules" are initialized manually
-		if (!reinit) {
-			wordDisplay.init(this.model);
-		} else {
-			wordDisplay.updateModel(this.model);
-		}
-
 		if (!reinit) {
 			this.modules.push(new LivePrompt())
 			this.modules.push(new TypingTimer());
+			this.modules.push(new WordDisplay(model));
 		}
 
 		this.modules.forEach((e) => e.initialize(model, reinit));
