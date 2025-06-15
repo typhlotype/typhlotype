@@ -122,7 +122,7 @@ export class Model extends Dropper {
 		new LetterPromptEvent(this.word, this.position).send();
 
 		// Send the location hint as a delayed prompt
-		let keyLocationHint = this.keyboardLayout.fingerLocation(letter);
+		let keyLocationHint = this.keyboardLayout.fingerLocationHint(letter);
 		if (keyLocationHint && settings.keyPrompt.locationAssistance) {
 			delayedPrompt(keyLocationHint + ". ", letter,  "wordPromptHint");
 		}

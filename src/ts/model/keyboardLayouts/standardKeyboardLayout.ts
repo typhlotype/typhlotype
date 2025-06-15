@@ -32,7 +32,7 @@ export class StandardKeyboardLayout implements KeyboardLayout {
 		this.layout = layout;
 	}
 
-	fingerLocation(letter: string): string | undefined {
+	fingerLocationHint(letter: string): string | undefined {
 		let loc = this.searchForLetter(letter);
 
 		if (!loc) {
@@ -112,6 +112,10 @@ export class StandardKeyboardLayout implements KeyboardLayout {
 			}
 		}
 		return;
+	}
+
+	contains(letter: string): boolean {
+		return this.contains(letter) !== undefined;
 	}
 }
 
