@@ -13,8 +13,12 @@ class MockWordGenerator implements WordGenerator {
 }
 
 class MockKeyboardLayout implements KeyboardLayout {
-	fingerLocation(letter: string): string {
+	fingerLocationHint(letter: string): string {
 		return `Finger location for ${letter}`;
+	}
+
+	contains(letter: string): boolean {
+		return true;
 	}
 }
 
