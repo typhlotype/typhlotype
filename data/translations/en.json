@@ -19,7 +19,8 @@
 			"toTheLeft": "to the left",
 			"toTheRight": "to the right",
 			"and": "and"
-		}
+		},
+		"unknownLetter": "It may not be possible to enter this letter with your keyboard layout. Press space twice to skip this letter."
 	},
 	"application": {
 		"title": "Typhlotype",

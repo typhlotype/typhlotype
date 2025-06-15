@@ -11,6 +11,11 @@ export class StandardKeyboardLayout implements KeyboardLayout {
 	 */
 	layout: [string, string, string];
 	/**
+	 * The letters that can be entered with thes keyboard layout even though'
+	 * they are not present in `layout`.
+	 */
+	otherwiseTypeable = [" "];
+	/**
 	 * The internal names of fingers.
 	 */
 	fingers = ["pinky", "ringFinger", "middleFinger", "indexFinger"];
@@ -115,7 +120,7 @@ export class StandardKeyboardLayout implements KeyboardLayout {
 	}
 
 	contains(letter: string): boolean {
-		return this.contains(letter) !== undefined;
+		return this.contains(letter) !== undefined || this.otherwiseTypeable.includes(letter);
 	}
 }
 

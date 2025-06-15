@@ -19,7 +19,8 @@
 			"toTheLeft": "til venstre",
 			"toTheRight": "til højre",
 			"and": "og"
-		}
+		},
+		"unknownLetter": "Det kan være umuligt at indtaste dette bogstav med dit tastatur. Tryk mellemrum to gange for at springe bogstavet over."
 	},
 	"application": {
 		"title": "Typhlotype",

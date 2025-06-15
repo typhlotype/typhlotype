@@ -10,6 +10,7 @@ import { IncorrectLetterInputEvent } from "../events/input/incorrectLetterInputE
 import { KeyboardLayout } from "./keyboardLayout.js";
 import { WordGenerator } from "./wordGenerator.js";
 import { Dropper } from "../droppable.js"
+import { LetterSkippedEvent } from "../events/input/letterSkippedEvent.js";
 
 /**
  * The Model class is responsible for managing the state and behavior of the
@@ -41,6 +42,11 @@ export class Model extends Dropper {
 	 * The time that the user was prompted to enter the current letter.
 	 */
 	promptTime?: HighResTimeStamp;
+	/**
+	 * Counts the number of times the space key has been pressed in a row, so
+	 * that pressing space twice can be used to skip a letter.
+	 */
+	spaceCounter = 0;
 
 	/**
 	 * Creates a new Model instance.
@@ -87,7 +93,6 @@ export class Model extends Dropper {
 	 * @param prefix An optional prefix to add to the prompt.
 	 */
 	prompt(prefix?: string) {
-		this.promptTime = performance.now();
 		cancelDelayedPrompt("wordPromptHint");
 
 		let promptText = "";
@@ -118,14 +123,22 @@ export class Model extends Dropper {
 		}
 
 		// Send the prompt to the presentation layer
+		this.promptTime = performance.now();
 		new AssertivePromptEvent(promptText, "wordPrompt").send();
 		new LetterPromptEvent(this.word, this.position).send();
 
 		// Send the location hint as a delayed prompt
-		let keyLocationHint = this.keyboardLayout.fingerLocationHint(letter);
-		if (keyLocationHint && settings.keyPrompt.locationAssistance) {
-			delayedPrompt(keyLocationHint + ". ", letter,  "wordPromptHint");
+		if (settings.keyPrompt.locationAssistance) {
+			const keyLocationHint = this.keyboardLayout.fingerLocationHint(letter);
+			let promptHint: string;
+			if (keyLocationHint) {
+				promptHint = keyLocationHint + ". ";
+			} else {
+				promptHint = i18n("prompt.unknownLetter");
+			}
+			delayedPrompt(promptHint, letter, "wordPromptHint");
 		}
+
 	}
 
 	/**
@@ -156,11 +169,22 @@ export class Model extends Dropper {
 		if (event.letter == this.requestedLetter()) {
 			// Correct input
 			const timeTaken = this.measureTimeTaken();
+			this.spaceCounter = 0;
 			this.advanceLetter();
 			this.prompt();
 			new CorrectLetterInputEvent(event.letter, timeTaken).send();
+		} else if (event.letter == " ") {
+			// Handle pressing space twice to skip letter.
+			this.spaceCounter++;
+			if (this.spaceCounter >= 2) {
+				this.advanceLetter();
+				this.prompt();
+				new LetterSkippedEvent(event.letter).send();
+				this.spaceCounter = 0;
+			}
 		} else {
 			// Incorrect input
+			this.spaceCounter = 0;
 			this.prompt(i18n("prompt.incorrect"));
 			new IncorrectLetterInputEvent(event.letter).send();
 		}
