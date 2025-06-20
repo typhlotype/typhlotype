@@ -7,22 +7,23 @@ import { Model } from "../model/model.js";
 import { Module } from "../module.js";
 
 /**
- * LivePrompt is the module that provides prompts to assistive technology via
- * ARIA Live.
+ * The LivePrompt module provides prompts to assistive technology via ARIA Live.
  */
 export class LivePrompt implements Module {
 	eventSubscriptions: EventSubscriptionToken[] = [];
 
 	initialize(model: Model, reinit: boolean): void {
-		this.eventSubscriptions.push(
-			AssertivePromptEvent.subscribe(this.assertivePrompt)
-		);
-		this.eventSubscriptions.push(
-			PolitePromptEvent.subscribe(this.politePrompt)
-		);
-		this.eventSubscriptions.push(
-			PolitePromptCancellationEvent.subscribe(this.politePromptCancellation)
-		);
+		if (!reinit) {
+			this.eventSubscriptions.push(
+				AssertivePromptEvent.subscribe(this.assertivePrompt)
+			);
+			this.eventSubscriptions.push(
+				PolitePromptEvent.subscribe(this.politePrompt)
+			);
+			this.eventSubscriptions.push(
+				PolitePromptCancellationEvent.subscribe(this.politePromptCancellation)
+			);
+		}
 	}
 
 	assertivePrompt(event: AssertivePromptEvent) {
