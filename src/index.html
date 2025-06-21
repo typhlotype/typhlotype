@@ -6,6 +6,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="referrer" content="origin">
 		<title data-i18n="application.title">Typhlotype</title>
+		<meta name="description" i18n="[content]=application.info">
+		<link rel="canonical" href="https://typhlotype.lauritzt.dk/">
 		<link rel="stylesheet" href="main.css">
 		<script src="js/main.js" type="module"></script>
 	</head>
@@ -45,6 +47,10 @@
 					</ul>
 				</nav>
 			</header>
+
+			<section id="info" data-section-type="main">
+				<p data-i18n="application.info"></p>
+			</section>
 
 			<div id="livePromptAssertive" aria-live="assertive" class="visuallyHidden"></div>
 			<div id="livePromptPolite" aria-live="polite" class="visuallyHidden"></div>
@@ -154,10 +160,6 @@
 
 					<button data-action-fieldset="apply">Apply prompt speech methods settings</button>
 				</fieldset>
-			</section>
-
-			<section id="info" data-section-type="main">
-				<p data-i18n="application.info"></p>
 			</section>
 		</div>
 	</body>
