@@ -1,5 +1,5 @@
 /**
- * This module is responsible for handling the settings page and persistant
+ * This module is responsible for handling the settings page and persistent
  * settings storage. It reads the settings from the page and updates the
  * settings model accordingly. It also saves the settings to local storage and
  * reads them from there on startup, and handles detection of the user's
@@ -8,7 +8,7 @@
 
 import { Settings, applySettings, settings } from "../model/settingsModel.js";
 import { SettingsChangeEvent } from "../events/settingsChangeEvent.js";
-import * as persistance from "./persistance.js";
+import * as persistence from "./persistence.js";
 
 /**
  * The language that should be chosen if the user does not prefer a language
@@ -23,7 +23,7 @@ export async function init() {
 	SettingsChangeEvent.subscribe(saveNewSettings);
 
 	try {
-		const savedSettingsString = persistance.getItem("settings");
+		const savedSettingsString = persistence.getItem("settings");
 
 		if (!savedSettingsString) {
 			// There were no saved settings. Default settings are already
@@ -101,7 +101,7 @@ function choosePreferredLanguage(languageOptions: string[]) {
 }
 
 function saveNewSettings() {
-	persistance.setItem("settings", JSON.stringify(settings));
+	persistence.setItem("settings", JSON.stringify(settings));
 }
 
 /**
